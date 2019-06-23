@@ -17,7 +17,7 @@ class CreateFoodsTable extends Migration
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
             $table->string('name', 100);
-            $table->string('image', 50);
+            $table->string('image');
             $table->timestamps();
         });
     }

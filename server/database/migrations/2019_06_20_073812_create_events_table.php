@@ -15,13 +15,15 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('del_flag')->default(false);
             $table->string('name', 100);
-            $table->string('weekly_repeat', 10);
-            $table->integer('status')->unsigned();
-            $table->dateTime('start_time');
-            $table->dateTime('end_time');
+            $table->integer('repeat_type')->unsigned();
+            $table->string('repeat_on_day', 10);
+            $table->boolean('status')->default(true);
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
-            $table->foreign('status')->references('id')->on('configurations')->onUpdate('cascade');
+            $table->foreign('repeat_type')->references('id')->on('configurations')->onUpdate('cascade');
         });
     }
 

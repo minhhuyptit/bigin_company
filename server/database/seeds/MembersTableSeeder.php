@@ -1,0 +1,19 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Carbon\Carbon;
+
+class MembersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('members')->insert([
+            array('del_flag' => false, 'email' => 'minhhuy97.ptit@gmail.com', 'password' => md5('123456'), 'fullname' => 'Nguyễn Hà Minh Huy', 'is_male' => true, 'birthday' => '1997-06-21', 'phone' => '0794755005', 'picture' => 'avatar_1.png', 'role' => 2, 'created_at' => Carbon::now('Asia/Ho_Chi_Minh'), 'updated_at' => Carbon::now('Asia/Ho_Chi_Minh'))
+        ]);
+    }
+}

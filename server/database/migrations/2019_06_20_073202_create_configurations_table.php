@@ -17,6 +17,7 @@ class CreateConfigurationsTable extends Migration
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
             $table->string('value', 100);
+            $table->string('description')->nullable()->default('');
             $table->string('type', 15);
             $table->timestamps();
         });
