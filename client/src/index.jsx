@@ -13,6 +13,9 @@ import history from "./helpers/history";
 import LoginContainer from "./containers/LoginContainer";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
 
+import "semantic-ui-css/semantic.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const persistPlugin = createPersistPlugin({
   version: 2
 });
