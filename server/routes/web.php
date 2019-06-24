@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('test', function () {
+    $res = App\Configuration::find(2)->members;
+    return $res;
+});
