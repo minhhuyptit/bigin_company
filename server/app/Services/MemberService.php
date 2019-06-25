@@ -2,29 +2,29 @@
 
 namespace App\Services;
 
-use App\Services\Contracts\MemberServiceInterface;
 use App\Repositories\MemberRepository;
+use App\Services\Contracts\MemberServiceInterface;
 
-class MemberService extends BaseService implements MemberServiceInterface
-{
+require_once app_path() . '/configs/constants.php';
 
-    protected $memberRepository;
-
-    // @Override
-    public function getRepository()
-    {
-        return MemberRepository::class;
+class MemberService extends BaseService implements MemberServiceInterface {
+    public function __construct(MemberRepository $memberRepository) {
+        $this->repository = $memberRepository;
     }
 
-    public function __construct(MemberRepository $memberRepository)
-    {   
-        //STT 4
-        $this->memberRepository = $memberRepository;
+    public function login(string $email, string $password) {
+        $res = $this->repository->login($email, $password);
+        return $this->responseLogin($res);
     }
 
-    public function login($email, $password)
-    {   
-        //STT 6
-        $this->memberRepository->login("minhhuy", "qwe");
+    private function responseLogin($res) {
+        if (!empty($res)) {
+            $res['role'] = $res->member_role['value'];
+            $listUnset = ['member_role', 'created_at', 'updated_at'];
+            $this->removeElements($res, $listUnset);
+            return $this->response(200, LOGIN_SUCCESS, $res);
+        } else {
+            return $this->response(404, LOGIN_FAIL);
+        }
     }
 }

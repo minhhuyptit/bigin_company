@@ -1,21 +1,20 @@
 <?php
 
 namespace App\Repositories;
+
 use App\Repositories\Contracts\MemberRepositoryInterface;
+use App\Member;
 
-class MemberRepository extends BaseRepository implements MemberRepositoryInterface{
+class MemberRepository extends BaseRepository implements MemberRepositoryInterface
+{
 
-    //@Override
-    public function getModel()
+    public function __construct(Member $member)
     {
-        //STT 3
-        return \App\Member::class;
+        $this->model = $member;
     }
 
-    public function login($email, $password)
+    public function login(string $email, string $password)
     {
-        // STT 7
+        return $this->model::where(['email' => $email, 'password' => $password, 'del_flag' => false])->first();
     }
-
-    
 }

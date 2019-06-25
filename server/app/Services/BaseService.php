@@ -3,25 +3,15 @@
 namespace App\Services;
 
 use App\Services\Contracts\ServiceInterface;
+use App\Repositories\BaseRepository;
+use App\Configs\Messages;
 
 abstract class BaseService implements ServiceInterface
 {
-    protected $_repository;
+    protected $repository;
 
-    public function __construct()
-    {
-        die("4");
-        $this->setModel();
-    }
-
-    abstract public function getRepository();
-
-    public function setModel()
-    {
-        die("5");
-        $this->_repository = app()->make(
-            $this->getRepository()
-        );
+    protected function setRepository(BaseRepository $repository){   //Review later
+        $this->repository = $repository;
     }
 
     public function all()
@@ -30,8 +20,8 @@ abstract class BaseService implements ServiceInterface
 
     public function find($id)
     {
+        return "function find of BaseService Layer";
     }
-
 
     public function create(array $data = [])
     {
@@ -43,5 +33,21 @@ abstract class BaseService implements ServiceInterface
 
     public function delete($id)
     {
+    }
+
+    public function removeElements($array, $listUnset)
+    {
+        foreach ($listUnset as $val) {
+            unset($array[$val]);
+        }
+    }
+
+    public function response($status = 404, $message = '', $data = [])
+    {
+        return [
+            'status'  => $status,
+            'message' => Messages::messages($message, 'en'),
+            'data'    => $data
+        ];
     }
 }

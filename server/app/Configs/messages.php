@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Configs;
 
-require_once app_path() . '/configs/constants.php';
 class Messages
 {
     // Login

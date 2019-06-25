@@ -16,7 +16,7 @@ class Member extends Model
         'password', 'del_flag'
     ];
 
-    public function roles()
+    public function member_role()
     {
         return $this->belongsTo(Configuration::class, 'role', 'id')->where('del_flag', false);
     }

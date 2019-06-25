@@ -8,6 +8,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Configs\Messages;
 
 require_once app_path() . '/configs/constants.php';
+
 class LoginRequest extends FormRequest
 {
     /**

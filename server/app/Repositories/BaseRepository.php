@@ -3,25 +3,14 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\RepositoryInterface;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class BaseRepository implements RepositoryInterface
 {
-    protected $_model;
+    protected $model;
 
-    public function __construct()
-    {
-        // STT 1
-        $this->setModel();
-    }
-
-    abstract public function getModel();
-
-    public function setModel()
-    {
-        // STT 2
-        $this->_model = app()->make(
-            $this->getModel()   //callback getModel of MemberRepository
-        );
+    protected function setModel(Model $model){     //Review later
+        $this->model = $model;
     }
 
     public function all()
@@ -33,7 +22,6 @@ abstract class BaseRepository implements RepositoryInterface
         $result = $this->_model->find($id);
         return $result;
     }
-
 
     public function create(array $data = [])
     {
