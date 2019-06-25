@@ -1,6 +1,6 @@
 export const user = {
   state: {
-    isAuthenticated: false,
+    isAuthenticated: true,
     user: {}
   },
   reducers: {},
