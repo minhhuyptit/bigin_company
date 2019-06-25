@@ -9,10 +9,10 @@ use App\Services\MemberService;
 class MemberController extends Controller
 {
     protected $service;
+    protected $memberServices;
 
     public function __construct(MemberService $memberServices)
     {
-        //STT 5
         $this->service = $memberServices;
     }
 

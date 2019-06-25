@@ -16,6 +16,9 @@ import ProtectedRoute from "./components/Common/ProtectedRoute";
 import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import "@coreui/icons/css/coreui-icons.min.css";
+import "@coreui/coreui/scss/coreui.scss";
+
 const persistPlugin = createPersistPlugin({
   version: 2
 });
