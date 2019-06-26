@@ -9,7 +9,7 @@ use App\Services\MemberService;
 class MemberController extends Controller
 {
     protected $service;
-    protected $memberServices;
+    // protected $memberServices;
 
     public function __construct(MemberService $memberServices)
     {

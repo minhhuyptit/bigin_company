@@ -27,7 +27,8 @@ class Header extends Component {
   }
 
   handleLogout() {
-    // this.props.history.push("/login");
+    this.props.logout();
+    this.props.history.push("/login");
   }
 
   render() {
@@ -75,13 +76,6 @@ class Header extends Component {
                   7
                 </Badge>
               </DropdownItem>
-              <DropdownItem>
-                <i className="fa fa-tasks fa-lg" />
-                Tasks
-                <Badge color="danger" pill>
-                  32
-                </Badge>
-              </DropdownItem>
               <DropdownItem className="text-center" header>
                 <strong>Settings</strong>
               </DropdownItem>
@@ -106,9 +100,15 @@ class Header extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  logout: item => {
+    dispatch.user.logout();
+  }
+});
+
 export default withRouter(
   connect(
     null,
-    null
+    mapDispatchToProps
   )(Header)
 );

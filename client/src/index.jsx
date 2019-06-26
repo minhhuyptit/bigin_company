@@ -12,6 +12,7 @@ import App from "./App";
 import history from "./helpers/history";
 import LoginContainer from "./containers/LoginContainer";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+import Notification from "./components/Common/Notification";
 
 import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -32,6 +33,7 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={getPersistor()}>
       <Router history={history}>
+        <Notification />
         <Switch>
           <Route exact path="/login" component={LoginContainer} />
           <ProtectedRoute path="*" component={App} />
