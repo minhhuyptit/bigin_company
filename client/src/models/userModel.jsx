@@ -23,7 +23,8 @@ export const user = {
   },
   effects: {
     async asyncUpdateUser(formData) {
-      console.log(formData);
+      // console.log(formData);
+      // return;
       // console.log(user);
       // let {id, fullname, birthday, is_male, phone, picture} = user;
       let res = await authenApi.call("updateUser", {
@@ -32,7 +33,7 @@ export const user = {
           birthday: "1997/06/21",
           is_male: true,
           phone: "0978250272",
-          picture: formData
+          picture: "qwe"
         },
         url: {
           id: 1

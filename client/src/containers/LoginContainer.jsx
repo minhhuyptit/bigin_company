@@ -60,10 +60,10 @@ class LoginContainer extends Component {
       let res = await authenApi.call("login", {
         body: {email, password}
       });
-      
+      console.log(res);
       if (res.status === 200) {
-        // this.props.login(res.data); //Save data to Redux LocalStorage
-        // this.props.history.push("/dashboard");
+        this.props.login(res.data); //Save data to Redux LocalStorage
+        this.props.history.push("/dashboard");
         let option = {
           style: notify.SUCCESS,
           title: notify.TITLE_LOGIN_SUCCESS,
@@ -89,16 +89,16 @@ class LoginContainer extends Component {
     let hrefLink = "#";
     return (
       <Container>
-        <video autoPlay muted loop id="video_background">
+        {/* <video autoPlay muted loop id="video_background">
           <source src="/video/background-login.mp4" type="video/mp4" />
-        </video>
+        </video> */}
         <Row className="justify-content-center">
           <Col lg="4" md="6" sm="8" xs="10" className="form-login">
             <Segment color="red">
               <Card fluid>
                 <Card.Content>
                   <Loader size="massive" active={isLoading} />
-                  <img id="logo" src="/images/bigin-logo.png" alt="logo" />
+                  {/* <img id="logo" src="/images/bigin-logo.png" alt="logo" /> */}
                   <Form>
                     <Form.Field
                       label="Email"
