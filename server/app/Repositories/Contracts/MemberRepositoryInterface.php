@@ -4,5 +4,5 @@ namespace App\Repositories\Contracts;
 
 interface MemberRepositoryInterface extends RepositoryInterface
 {
-    public function login(string $email, string $password);
+    public function login(array $credentials);
 }

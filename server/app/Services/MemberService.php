@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\MemberRepository;
 use App\Services\Contracts\MemberServiceInterface;
+use Illuminate\Support\Facades\Auth;
 
 require_once app_path() . '/configs/constants.php';
 
@@ -12,17 +13,19 @@ class MemberService extends BaseService implements MemberServiceInterface {
         $this->repository = $memberRepository;
     }
 
-    public function login(string $email, string $password) {
-        $res = $this->repository->login($email, $password);
-        return $this->responseLogin($res);
+    public function login(array $credentials) {
+        $token = $this->repository->login($credentials);
+        return $this->responseLogin($token);
     }
 
-    private function responseLogin($res) {
-        if (!empty($res)) {
-            $res['role'] = $res->member_role['value'];
+    private function responseLogin(string $token) {
+        if (!empty($token)) {
+            $user = Auth::user();
+            $user['role'] = $user->member_role['value'];
+            $user['token'] = $token; 
             $listUnset = ['member_role', 'created_at', 'updated_at'];
-            $this->removeElements($res, $listUnset);
-            return $this->response(200, LOGIN_SUCCESS, $res);
+            $this->removeElements($user, $listUnset);
+            return $this->response(200, LOGIN_SUCCESS, $user);
         } else {
             return $this->response(404, LOGIN_FAIL);
         }

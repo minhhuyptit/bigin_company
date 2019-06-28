@@ -2,10 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Member extends Model
+class Member extends Authenticatable implements JWTSubject
 {
+    // use HasApiTokens;
+    
     protected $table = 'members';
     protected $fillable = [
         'id', 'del_flag', 'email', 'password', 'fullname', 'is_male', 'birthday',
@@ -25,5 +28,15 @@ class Member extends Model
     {
         return $this->hasMany(Vote::class, 'member_id', 'id')
             ->where('del_flag', false);
+    }
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\MemberRepositoryInterface;
 use App\Member;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class MemberRepository extends BaseRepository implements MemberRepositoryInterface
 {
@@ -13,8 +15,8 @@ class MemberRepository extends BaseRepository implements MemberRepositoryInterfa
         $this->model = $member;
     }
 
-    public function login(string $email, string $password)
+    public function login(array $credentials)
     {
-        return $this->model::where(['email' => $email, 'password' => $password, 'del_flag' => false])->first();
+        return JWTAuth::attempt($credentials);
     }
 }

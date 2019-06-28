@@ -1,3 +1,6 @@
+import AuthenticationApi from "./../apis/AuthenticationApis";
+const authenApi = new AuthenticationApi();
+
 export const user = {
   state: {
     isAuthenticated: false,
@@ -19,25 +22,24 @@ export const user = {
     }
   },
   effects: {
-    async asyncUpdateUser(user) {
-      // let {id, fullname, birthday, is_male, email, phone, picture} = user;
-      // let res = await authenApi.call("updateUser", {
-      //   body: {
-      //     fullname,
-      //     birthday,
-      //     is_male,
-      //     email,
-      //     phone,
-      //     picture,
-      //     execute_by: id
-      //   },
-      //   url: {
-      //     id
-      //   }
-      // });
+    async asyncUpdateUser(formData) {
+      console.log(formData);
+      // console.log(user);
+      // let {id, fullname, birthday, is_male, phone, picture} = user;
+      let res = await authenApi.call("updateUser", {
+        body: {
+          fullname: "Nguyễn Huy",
+          birthday: "1997/06/21",
+          is_male: true,
+          phone: "0978250272",
+          picture: formData
+        },
+        url: {
+          id: 1
+        }
+      });
 
-      // console.log("Result: ", res);
-
+      console.log("Result: ", res);
     }
   }
 };

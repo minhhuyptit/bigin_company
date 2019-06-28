@@ -13,6 +13,22 @@ export default class AuthenticationApi extends BaseApi{
                         password: ''
                     }
                 }
+            },
+            updateUser: {
+                url: 'member/{id}',
+                method: 'put',
+                payload: {
+                    body: {
+                        fullname: '',
+                        birthday: '',
+                        is_male: '',
+                        phone: '',
+                        picture: '',
+                    },
+                    url: {
+                        id: ''
+                    }
+                }
             }
         }
     }

@@ -32,6 +32,7 @@ export default class BaseRequest {
   }
 
   async put(url, body) {
+    console.log(body)
     try {
       let res = await axios.put(url, body);
       return {
