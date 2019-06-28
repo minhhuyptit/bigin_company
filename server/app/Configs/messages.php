@@ -28,9 +28,29 @@ class Messages
         )
     );
 
+    // Logout
+    public static $logout = array(
+        EMPTY_TOKEN => array(
+            'vi' => 'Token không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Token canot be empty. Please check again'
+        ),
+        LOGOUT_SUCCESS => array(
+            'vi' => 'Đăng xuất thành công',
+            'en' => 'Logout successfully'
+        ),
+        LOGOUT_FAIL => array(
+            'vi' => 'Đăng xuất thật bại. Vui lòng kiểm tra lại',
+            'en' => 'Logout failed. Please check again'
+        ),
+        REFRESH_TOKEN_SUCCESS => array(
+            'vi' => 'Làm mới token thành công',
+            'en' => 'Refresh token success'
+        )
+    );
+
     public static function messages($key_message, $lang = 'en')
     {
-        $data = array_merge(static::$login);
+        $data = array_merge(static::$login, static::$logout);
         return $data[$key_message][$lang];
     }
 }

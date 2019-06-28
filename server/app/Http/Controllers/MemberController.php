@@ -41,4 +41,12 @@ class MemberController extends Controller {
         $credentials = $request->only('email', 'password');
         return $this->service->login($credentials);
     }
+
+    public function logout(Request $request){
+        return $this->service->logout($request);
+    }
+
+    public function refresh(){
+        return $this->service->response(200, REFRESH_TOKEN_SUCCESS, JWTAuth::getToken());
+    }
 };

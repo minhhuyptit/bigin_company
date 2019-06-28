@@ -19,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "@coreui/icons/css/coreui-icons.min.css";
 import "@coreui/coreui/scss/coreui.scss";
+require('dotenv').config();
 
 const persistPlugin = createPersistPlugin({
   version: 2

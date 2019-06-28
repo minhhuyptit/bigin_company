@@ -62,8 +62,8 @@ class LoginContainer extends Component {
       });
       
       if (res.status === 200) {
-        // this.props.login(res.data); //Save data to Redux LocalStorage
-        // this.props.history.push("/dashboard");
+        this.props.login(res.data); //Save data to Redux LocalStorage
+        this.props.history.push("/dashboard");
         let option = {
           style: notify.SUCCESS,
           title: notify.TITLE_LOGIN_SUCCESS,
@@ -87,6 +87,7 @@ class LoginContainer extends Component {
   render() {
     let {isLoading, email, password} = this.state;
     let hrefLink = "#";
+    console.log(env);
     return (
       <Container>
         <video autoPlay muted loop id="video_background">

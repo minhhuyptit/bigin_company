@@ -27,11 +27,11 @@ class ProfileContainer extends Component {
   handleSubmit(picture) {
     // console.log("User Info: ", this.state.userInfo);
     console.log("Picture: ", picture);
-    let formdata = new FormData();
-    formdata.append("picture", picture);
+    // let formdata = new FormData();
+    // formdata.append("picture", picture);
     // console.log(formData)
     let {userInfo} = this.state;
-    this.props.updateUser(formdata);
+    this.props.updateUser("wqe");
   }
 
   render() {

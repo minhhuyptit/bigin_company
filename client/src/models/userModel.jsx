@@ -32,7 +32,7 @@ export const user = {
           birthday: "1997/06/21",
           is_male: true,
           phone: "0978250272",
-          picture: formData
+          picture: "avatar.jpg"
         },
         url: {
           id: 1
