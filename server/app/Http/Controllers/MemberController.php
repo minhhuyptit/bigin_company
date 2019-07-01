@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class MemberController extends Controller {
     protected $service;
-    // protected $memberServices;
 
     public function __construct(MemberService $memberServices) {
         $this->service = $memberServices;
@@ -31,8 +29,6 @@ class MemberController extends Controller {
     public function edit($id) {}
 
     public function update(Request $request, $id) {
-        
-        return $request;
     }
 
     public function destroy($id) {}
@@ -42,11 +38,15 @@ class MemberController extends Controller {
         return $this->service->login($credentials);
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request) {
         return $this->service->logout($request);
     }
 
-    public function refresh(){
+    public function refresh() {
         return $this->service->response(200, REFRESH_TOKEN_SUCCESS, JWTAuth::getToken());
+    }
+
+    public function updateProfile(Request $request, int $id) {
+        return $this->service->uploadProfile($request, $id);
     }
 };

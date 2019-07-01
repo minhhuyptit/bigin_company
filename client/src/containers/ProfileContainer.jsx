@@ -25,13 +25,8 @@ class ProfileContainer extends Component {
   }
 
   handleSubmit(picture) {
-    // console.log("User Info: ", this.state.userInfo);
-    console.log("Picture: ", picture);
-    // let formdata = new FormData();
-    // formdata.append("picture", picture);
-    // console.log(formData)
-    let {userInfo} = this.state;
-    this.props.updateUser("wqe");
+    let data = {...this.state.userInfo, picture}
+    this.props.updateProfile(data);
   }
 
   render() {
@@ -64,8 +59,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateUser: user => {
-    dispatch.user.asyncUpdateUser(user);
+  updateProfile: user => {
+    dispatch.user.asyncUpdateProfile(user);
   }
 });
 

@@ -1,4 +1,5 @@
 import BaseRequest from "./BaseRequest";
+import {forceLogout} from "./../helpers/ultis";
 
 export default class BaseApi extends BaseRequest {
   constructor() {
@@ -8,8 +9,10 @@ export default class BaseApi extends BaseRequest {
 
   async invoke(method, url, body = null) {
     let res = await super[method](url, body);
-    if (res.status !== 200) {
-      alert("Error: " + res.message);
+    if (res.status === 401) {
+      forceLogout();
+    } else if (res.status !== 200) {
+      alert("Error: " + res);
       return null;
     } else {
       return res.data;

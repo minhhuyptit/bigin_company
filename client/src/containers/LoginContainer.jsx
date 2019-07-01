@@ -87,7 +87,6 @@ class LoginContainer extends Component {
   render() {
     let {isLoading, email, password} = this.state;
     let hrefLink = "#";
-    console.log(env);
     return (
       <Container>
         <video autoPlay muted loop id="video_background">
