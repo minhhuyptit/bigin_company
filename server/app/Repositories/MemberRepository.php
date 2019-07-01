@@ -6,6 +6,7 @@ use App\Repositories\Contracts\MemberRepositoryInterface;
 use App\Member;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MemberRepository extends BaseRepository implements MemberRepositoryInterface
 {
@@ -19,4 +20,6 @@ class MemberRepository extends BaseRepository implements MemberRepositoryInterfa
     {
         return JWTAuth::attempt($credentials);
     }
+
+    
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import {store} from "./../index.jsx";
 export default class BaseRequest {
   getAccessToken() {
-    return store.getState() != undefined && store.getState().user.user != undefined
+    return store.getState() !== undefined && store.getState().user.user !== undefined
       ? store.getState().user.user.token
       : "";
   }
@@ -45,7 +45,7 @@ export default class BaseRequest {
     try {
       let res = await axios.put(url, body, {
         headers: {
-          Authorization: "Bearer " + this.getAccessToken()
+          "Authorization": "Bearer " + this.getAccessToken()
         }
       });
       return {

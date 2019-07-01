@@ -35,6 +35,10 @@ class MemberService extends BaseService implements MemberServiceInterface {
         }
     }
 
+    public function updateProfile(Request $request, int $id){
+        
+    }
+
     private function responseLogin(string $token) {
         if (!empty($token)) {
             $user = Auth::user();

@@ -22,24 +22,23 @@ export const user = {
     }
   },
   effects: {
-    async asyncUpdateUser(formData) {
-      console.log(formData);
-      // console.log(user);
-      // let {id, fullname, birthday, is_male, phone, picture} = user;
-      let res = await authenApi.call("updateUser", {
-        body: {
-          fullname: "Nguyễn Huy",
-          birthday: "1997/06/21",
-          is_male: true,
-          phone: "0978250272",
-          picture: "avatar.jpg"
-        },
+    async asyncUpdateProfile(data) {
+      let formData = new FormData();
+      formData.set("fullname", data["fullname"]);
+      formData.set("birthday", data["birthday"]);
+      formData.set("is_male", data["is_male"]);
+      formData.set("phone", data["phone"]);
+      if (data["picture"] !== undefined) {
+        formData.append("picture", data["picture"]);
+      }
+      let res = await authenApi.call("updateProfile", {
+        body: formData,
         url: {
-          id: 1
+          id: data["id"]
         }
       });
 
-      console.log("Result: ", res);
+      console.log(res);
     }
   }
 };
