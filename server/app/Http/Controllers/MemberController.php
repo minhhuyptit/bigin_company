@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use App\Http\Requests\UpdateProfileRequest;
 
 class MemberController extends Controller {
     protected $service;
@@ -46,7 +47,7 @@ class MemberController extends Controller {
         return $this->service->response(200, REFRESH_TOKEN_SUCCESS, JWTAuth::getToken());
     }
 
-    public function updateProfile(Request $request, int $id) {
-        return $this->service->uploadProfile($request, $id);
+    public function updateProfile(UpdateProfileRequest $request, int $id) {
+        return $this->service->updateProfile($request, $id);
     }
 };

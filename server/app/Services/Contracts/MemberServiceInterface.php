@@ -3,6 +3,7 @@
 namespace App\Services\Contracts;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProfileRequest;
 
 interface MemberServiceInterface extends ServiceInterface
 {
@@ -10,5 +11,5 @@ interface MemberServiceInterface extends ServiceInterface
 
     public function logout(Request $request);
 
-    public function updateProfile(Request $request, int $id);
+    public function updateProfile(UpdateProfileRequest $request, int $id);
 }

@@ -68,7 +68,7 @@ class LoginContainer extends Component {
           style: notify.SUCCESS,
           title: notify.TITLE_LOGIN_SUCCESS,
           content: res.message,
-          timeout: 500
+          timeout: 200
       }
       this.props.changeNotify(option);
       } else {

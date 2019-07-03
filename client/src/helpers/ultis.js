@@ -1,5 +1,5 @@
-import history from 'helpers/history';
-import { store } from '../index.jsx';
+import history from './history';
+import { store } from './../index';
 
 export function forceLogout() {
   alert('Your working section ends! Please login again!!');

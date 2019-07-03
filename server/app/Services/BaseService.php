@@ -17,7 +17,7 @@ abstract class BaseService implements ServiceInterface {
     }
 
     public function find($id) {
-        return "function find of BaseService Layer";
+        return $this->repository->find($id);
     }
     public function create(array $data = []) {
     }

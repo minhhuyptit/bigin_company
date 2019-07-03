@@ -12,6 +12,7 @@ export default class BaseApi extends BaseRequest {
     if (res.status === 401) {
       forceLogout();
     } else if (res.status !== 200) {
+      console.log(res);
       alert("Error: " + res);
       return null;
     } else {

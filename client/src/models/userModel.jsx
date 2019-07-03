@@ -1,4 +1,7 @@
 import AuthenticationApi from "./../apis/AuthenticationApis";
+import {store} from "./../index";
+import * as notify from "./../constants/Notify";
+
 const authenApi = new AuthenticationApi();
 
 export const user = {
@@ -19,6 +22,10 @@ export const user = {
         isAuthenticated: false,
         user: {}
       };
+    },
+
+    updateUser(state, data) {
+      return {...state, user: {...state.user, ...data}};
     }
   },
   effects: {
@@ -26,7 +33,7 @@ export const user = {
       let formData = new FormData();
       formData.set("fullname", data["fullname"]);
       formData.set("birthday", data["birthday"]);
-      formData.set("is_male", data["is_male"]);
+      formData.set("is_male", +data["is_male"]);
       formData.set("phone", data["phone"]);
       if (data["picture"] !== undefined) {
         formData.append("picture", data["picture"]);
@@ -38,7 +45,24 @@ export const user = {
         }
       });
 
-      console.log(res);
+      if (res.status === 200) {
+        this.login(res.data);
+        let option = {
+          style: notify.SUCCESS,
+          title: notify.TITLE_UPDATE_SUCCESS,
+          content: res.message,
+          timeout: 1500
+        };
+        store.dispatch.notify.changeNotification(option);
+      }else{
+        let option = {
+          style: notify.DANGER,
+          title: notify.TITLE_UPDATE_FAIL,
+          content: res.message,
+          timeout: 2500
+        };
+        store.dispatch.notify.changeNotification(option);
+      }
     }
   }
 };

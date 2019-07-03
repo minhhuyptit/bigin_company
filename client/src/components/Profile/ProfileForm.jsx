@@ -9,10 +9,12 @@ class ProfileForm extends Component {
     super(props);
 
     this.state = {
-      showAvatar: false
+      showAvatar: false,
+      userInfo: this.props.userInfo
     };
 
     this.toggle = this.toggle.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleShowAvatar = this.handleShowAvatar.bind(this);
     this.handleUpdateAvatar = this.handleUpdateAvatar.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,19 +35,34 @@ class ProfileForm extends Component {
     $("#input-picture").click();
   }
 
+  handleChange({value}, key) {
+    let { userInfo } = this.state
+    userInfo[key] = value;
+    this.setState({ key: value });
+  }
+
   handleSubmit() {
     var picture = $("#input-picture")[0].files[0];
-    this.props.handleSubmit(picture);
+    let data = {...this.state.userInfo, picture}
+    this.props.handleSubmit(data);
   }
 
   render() {
-    let {fullname, birthday, is_male, phone, picture} = this.props.userInfo;
+
+    const widthAvatarThumb = process.env.REACT_APP_WIDTH_AVATAR_THUMB;
+    const heightAvatarThumb = process.env.REACT_APP_HEIGHT_AVATAR_THUMB;
+
+    let imagePath = process.env.REACT_APP_STORAGE_PUBLIC_SERVER + "images/member/";
+    let imagePathThumb = imagePath + "thumbnail/"+widthAvatarThumb+"x"+heightAvatarThumb+"-";
+
+    let {fullname, birthday, is_male, phone} = this.state.userInfo;
+    let {picture} = this.props.userInfo;
     return (
       <Form encType="multipart/form-data" id="profile-form">
         <Row>
           <Col sm={3} style={{textAlign: "center"}}>
             <div className="avatar_content">
-              <Image src={"/images/" + picture} centered onClick={this.handleShowAvatar} />
+              <Image src={imagePathThumb + picture} centered onClick={this.handleShowAvatar} />
               <div className="avatar_camera" onClick={this.handleUpdateAvatar}>
                 <i className="fa fa-camera" />
                 <p>Update Avatar</p>
@@ -55,12 +72,12 @@ class ProfileForm extends Component {
             <Label color="grey" basic size="tiny" pointing>
               Please select a square image to look better
             </Label>
-            <Modal style={{marginTop: "50px", maxWidth: "400px"}} toggle={this.toggle} isOpen={this.state.showAvatar}>
+            <Modal style={{maxWidth: "450px"}} toggle={this.toggle} isOpen={this.state.showAvatar}>
               <ModalHeader toggle={this.toggle}>
-                <Label size="small" color="red" content="Avatar" tag />
+                <Label size="small" color="brown" content="Avatar" tag />
               </ModalHeader>
               <ModalBody>
-                <Image centered src={"/images/" + picture} />
+                <Image centered src={imagePath + picture} />
               </ModalBody>
               <ModalFooter>
                 <Button color="blue" onClick={this.toggle} content="Close" />
@@ -69,16 +86,16 @@ class ProfileForm extends Component {
           </Col>
           <Col sm={6}>
             <Segment color="teal">
-                  <Form.Field>
-                        <Input
-                          required
-                          label="Fullname: "
-                          placeholder="Nguyễn Hà Minh Huy"
-                          icon="address book"
-                          value={fullname}
-                          onChange={(event, value) => this.props.handleChange(value, "fullname")}
-                        />
-                  </Form.Field>
+              <Form.Field>
+                <Input
+                  required
+                  label="Fullname: "
+                  placeholder="Nguyễn Hà Minh Huy"
+                  icon="address book"
+                  value={fullname}
+                  onChange={(event, value) => this.handleChange(value, "fullname")}
+                />
+              </Form.Field>
               <Form.Group>
                 <Form.Field width={10}>
                   <Input
@@ -86,13 +103,13 @@ class ProfileForm extends Component {
                     label="Birthday: "
                     type="date"
                     value={birthday}
-                    onChange={(event, value) => this.props.handleChange(value, "birthday")}
+                    onChange={(event, value) => this.handleChange(value, "birthday")}
                   />
                 </Form.Field>
                 <Form.Field width={4}>
                   <Button.Group>
                     <Button
-                      onClick={(event, value) => this.props.handleChange(value, "is_male")}
+                      onClick={(event, value) => this.handleChange(value, "is_male")}
                       value={true}
                       positive={!!+is_male === true}
                       size="small"
@@ -100,7 +117,7 @@ class ProfileForm extends Component {
                     />
                     <Button.Or />
                     <Button
-                      onClick={(event, value) => this.props.handleChange(value, "is_male")}
+                      onClick={(event, value) => this.handleChange(value, "is_male")}
                       value={false}
                       positive={!!+is_male === false}
                       size="small"
@@ -117,7 +134,7 @@ class ProfileForm extends Component {
                   placeholder="0794 755 005"
                   icon="phone"
                   value={phone}
-                  onChange={(event, value) => this.props.handleChange(value, "phone")}
+                  onChange={(event, value) => this.handleChange(value, "phone")}
                 />
               </Form.Field>
             </Segment>
