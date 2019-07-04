@@ -1,5 +1,4 @@
 <?php
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +17,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::resource('member', 'MemberController');
     Route::post('member/update-profile/{id}', 'MemberController@updateProfile');
 });
-Route::get('/token/refresh', 'MemberController@refresh')->middleware('jwt.refresh');
+Route::get('hello', function () {
+    return "Xin chào";
+});
+Route::get('token/refresh', 'MemberController@refresh')->middleware('jwt.refresh');

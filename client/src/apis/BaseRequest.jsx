@@ -9,7 +9,11 @@ export default class BaseRequest {
 
   async get(url) {
     try {
-      let res = await axios.get(url);
+      let res = await axios.get(url, {
+        headers: {
+          Authorization: "Bearer " + this.getAccessToken()
+        }
+      });
       return {
         status: res.status,
         data: res.data
@@ -45,7 +49,7 @@ export default class BaseRequest {
     try {
       let res = await axios.put(url, body, {
         headers: {
-          "Authorization": "Bearer " + this.getAccessToken()
+          Authorization: "Bearer " + this.getAccessToken()
         }
       });
       return {

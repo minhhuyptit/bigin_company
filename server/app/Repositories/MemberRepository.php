@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Repositories\Contracts\MemberRepositoryInterface;
 use App\Member;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
 use App\Http\Requests\UpdateProfileRequest;
 
 class MemberRepository extends BaseRepository implements MemberRepositoryInterface

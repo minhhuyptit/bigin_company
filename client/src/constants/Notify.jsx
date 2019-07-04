@@ -13,3 +13,4 @@ export const TITLE_LOGIN_FAIL    = 'Login Fail';
 export const TITLE_LOGIN_SUCCESS = 'Login Success';
 export const TITLE_UPDATE_FAIL = 'Update Fail';
 export const TITLE_UPDATE_SUCCESS = 'Update Success';
+export const TITLE_SESSION_END = 'Session End';

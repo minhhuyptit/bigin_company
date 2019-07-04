@@ -23,6 +23,10 @@ export default class AuthenticationApi extends BaseApi{
                         id: ""
                     }
                 }
+            },
+            refreshToken: {
+                url: 'token/refresh',
+                method: 'get' 
             }
         }
     }
