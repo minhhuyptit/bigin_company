@@ -12,12 +12,11 @@ export default class BaseApi extends BaseRequest {
     if (res.status === 401) {
       forceLogout();
     } else if (res.status !== 200) {
-      console.log(res);
       alert("Error: " + res);
-      return null;
     } else {
       return res.data;
     }
+    return res;
   }
 
   async call(apiName, payload = {}) {
@@ -49,18 +48,18 @@ export default class BaseApi extends BaseRequest {
         alert("Param passed in not match what Api defined !!");
         return;
       }
-
-      // Construct url param
-      if (url_param != null) {
-        Object.keys(url_param).forEach(function(item) {
-          url = url.replace("{" + item + "}", url_param[item]);
-        });
-      }
-
-      //Call API
-      let res = await this.invoke(apiList[apiName].method, url, body);
-      return res;
     }
+
+    // Construct url param
+    if (url_param != null) {
+      Object.keys(url_param).forEach(function(item) {
+        url = url.replace("{" + item + "}", url_param[item]);
+      });
+    }
+
+    //Call API
+    let res = await this.invoke(apiList[apiName].method, url, body);
+    return res;
   }
 
   validateUrl(payloadStructure, payload, url) {

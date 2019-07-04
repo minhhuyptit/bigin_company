@@ -32,6 +32,10 @@ class Header extends Component {
   }
 
   render() {
+    let {fullname, email, picture} = this.props.userInfo;
+    const width   = process.env.REACT_APP_WIDTH_AVATAR_THUMB;
+    const height  = process.env.REACT_APP_HEIGHT_AVATAR_THUMB;
+    let imagePath = process.env.REACT_APP_MEMBER_IMAGE_THUMB_PATH + width + "x" + height + "-";
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
@@ -47,7 +51,7 @@ class Header extends Component {
         <Nav className="ml-auto" navbar>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle nav>
-              <img src={"/images/avatar.png"} className="dropdown-avatar" alt="avatar" />
+              <img src={imagePath + picture} className="dropdown-avatar" alt="avatar" />
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem className="text-center" header>
@@ -55,10 +59,10 @@ class Header extends Component {
               </DropdownItem>
               <DropdownItem onClick={this.showProfilePage}>
                 <div className="user-option">
-                  <img src="/images/avatar.png" alt="avatar" />
+                  <img src={imagePath + picture} alt="avatar" />
                   <div>
-                    <strong>Nguyễn Hà Minh Huy</strong>
-                    <div>minhhuy97.ptit@gmail.com</div>
+                    <strong>{fullname}</strong>
+                    <div>{email}</div>
                   </div>
                 </div>
               </DropdownItem>
@@ -100,6 +104,12 @@ class Header extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    userInfo: state.user.user
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   logout: item => {
     dispatch.user.logout();
@@ -108,7 +118,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default withRouter(
   connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
   )(Header)
 );

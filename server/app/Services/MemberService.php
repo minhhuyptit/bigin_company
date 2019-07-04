@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
 use Validator;
 
 require_once app_path() . '/configs/constants.php';
@@ -33,7 +33,7 @@ class MemberService extends BaseService implements MemberServiceInterface {
                 JWTAuth::invalidate($request->token);
                 return $this->response(200, LOGOUT_SUCCESS);
             } catch (JWTException $ex) {
-                return $this->response(404, LOGOUT_FAIL);
+                return $this->response(404, LOGOUT_FAIL, $ex->getMessage());
             }
         }
     }

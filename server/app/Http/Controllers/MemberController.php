@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Requests\UpdateProfileRequest;
+use JWTAuth;
 
 class MemberController extends Controller {
     protected $service;
@@ -34,17 +34,18 @@ class MemberController extends Controller {
 
     public function destroy($id) {}
 
-    public function login(LoginRequest $request) {
-        $credentials = $request->only('email', 'password');
+    public function login(Request $request) {
+        $credentials = $request->only('email','password');
         return $this->service->login($credentials);
     }
 
     public function logout(Request $request) {
-        return $this->service->logout($request);
+        return JWTAuth::invalidate(JWTAuth::getToken());
     }
 
     public function refresh() {
-        return $this->service->response(200, REFRESH_TOKEN_SUCCESS, JWTAuth::getToken());
+        $token = JWTAuth::getToken();
+        return $this->service->response(200, REFRESH_TOKEN_SUCCESS, JWTAuth::refresh($token));
     }
 
     public function updateProfile(UpdateProfileRequest $request, int $id) {

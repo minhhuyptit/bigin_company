@@ -7,7 +7,9 @@ const authenApi = new AuthenticationApi();
 export const user = {
   state: {
     isAuthenticated: false,
-    user: {}
+    user: {
+      token: ""
+    }
   },
   reducers: {
     login(state, data) {
@@ -26,6 +28,10 @@ export const user = {
 
     updateUser(state, data) {
       return {...state, user: {...state.user, ...data}};
+    },
+
+    updateToken(state, data) {
+      return {...state, user: {...state.user, ...{token: data}}};
     }
   },
   effects: {
@@ -46,6 +52,7 @@ export const user = {
       });
 
       if (res.status === 200) {
+        //throw undefined when token expired
         this.login(res.data);
         let option = {
           style: notify.SUCCESS,
@@ -54,7 +61,7 @@ export const user = {
           timeout: 1500
         };
         store.dispatch.notify.changeNotification(option);
-      }else{
+      } else {
         let option = {
           style: notify.DANGER,
           title: notify.TITLE_UPDATE_FAIL,
@@ -62,6 +69,13 @@ export const user = {
           timeout: 2500
         };
         store.dispatch.notify.changeNotification(option);
+      }
+    },
+
+    async asyncRefreshToken() {
+      let res = await authenApi.call("refreshToken");
+      if (res.status === 200) {
+        this.updateToken(res.data);
       }
     }
   }
