@@ -8,7 +8,8 @@ class Configuration extends Model
 {
     protected $table = 'configurations';
     protected $fillable = [
-        'id', 'del_flag', 'value', 'description', 'type', 'created_at', 'updated_at'
+        'id', 'del_flag', 'value', 'description', 'type', 
+        'created_by', 'modified_by', 'created_at', 'updated_at'
     ];
 
     protected $hidden = [

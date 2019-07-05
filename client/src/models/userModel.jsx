@@ -50,7 +50,7 @@ export const user = {
           id: data["id"]
         }
       });
-
+      console.log(res);
       if (res.status === 200) {
         //throw undefined when token expired
         this.login(res.data);

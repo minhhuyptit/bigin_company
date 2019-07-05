@@ -8,9 +8,10 @@ use App\Services\Contracts\MemberServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Intervention\Image\ImageManagerStatic as Image;
+// use Image;
 use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
 
 require_once app_path() . '/configs/constants.php';
@@ -69,8 +70,13 @@ class MemberService extends BaseService implements MemberServiceInterface {
             $user = Auth::user();
             $user['role'] = $user->member_role['value'];
             $user['token'] = $token;
-            $listUnset = ['member_role', 'created_at', 'updated_at'];
+            $listUnset = ['member_role'];
             $this->removeElements($user, $listUnset);
+            $user->teams;
+            foreach ($user['teams'] as $val) {
+                $listUnsetTeam = ['leader', 'description'];
+                parent::removeElements($val, $listUnsetTeam);
+            }
             return $this->response(200, LOGIN_SUCCESS, $user);
         } else {
             return $this->response(404, LOGIN_FAIL);
@@ -85,17 +91,13 @@ class MemberService extends BaseService implements MemberServiceInterface {
     }
 
     private function uploadAvatar($file, $nameOldPicture) {
-        $widthThumb = 180;
-        $heihtThumb = 180;
-        $nameFile = uniqid("avatar-");
-        $extension = $file->getClientOriginalExtension();
-        $nameOriginPicture = $nameFile . "." . $extension;
-        $nameThumbPicture = $widthThumb . "x" . $heihtThumb . "-" . $nameOriginPicture;
+        $nameOriginPicture = uniqid("avatar-") . "." . $file->getClientOriginalExtension();
+        $nameThumbPicture = THUMB_SIZE . "-" . $nameOriginPicture;
         $thumbnailPath = public_path("storage/images/member/thumbnail/" . $nameThumbPicture);
         try {
-            $file->storeAs("public/images/member", $nameOriginPicture); //Store Image Origin
-            $file->storeAs("public/images/member/thumbnail", $nameThumbPicture); //Store Image Thumbnail
-            Image::make($thumbnailPath)->resize($widthThumb, $heihtThumb)->save($thumbnailPath);
+            $file->storeAs(URL_IMAGE_MEMBER, $nameOriginPicture); //Store Image Origin
+            $file->storeAs(URL_IMAGE_MEMBER_THUMB, $nameThumbPicture); //Store Image Thumbnail
+            Image::make($thumbnailPath)->resize(WIDTH_AVATAR_THUMB, HEIGHT_AVATAR_THUMB)->save($thumbnailPath);
             $this->deleteOldAvatar($nameOldPicture); //Delete old Avatar
         } catch (\Exception $ex) {
             return false;
@@ -104,9 +106,7 @@ class MemberService extends BaseService implements MemberServiceInterface {
     }
 
     private function deleteOldAvatar($picture) {
-        $widthThumb = 180;
-        $heihtThumb = 180;
-        Storage::delete("public/images/member/" . $picture);
-        Storage::delete("public/images/member/thumbnail/" . $widthThumb . "x" . $heihtThumb . "-" . $picture);
+        Storage::delete(URL_IMAGE_MEMBER . $picture);
+        Storage::delete(URL_IMAGE_MEMBER_THUMB . THUMB_SIZE . "-" . $picture);
     }
 }

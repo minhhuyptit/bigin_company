@@ -9,7 +9,7 @@ class Event extends Model
     protected $table = 'events';
     protected $fillable = [
         'id', 'del_flag', 'name', 'repeat_type', 'repeat_on_day', 'status',
-        'start_time', 'end_time', 'created_at', 'updated_at'
+        'start_time', 'end_time', 'created_by', 'modified_by', 'created_at', 'updated_at'
     ];
 
     protected $hidden = [

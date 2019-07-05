@@ -4,20 +4,37 @@ import {Label, Icon} from "semantic-ui-react";
 
 class ProfileHeader extends Component {
   render() {
-    let {email, role} = this.props;
+    const styleTeam = [
+      {size: "small", color: "blue"},
+      {size: "medium", color: "green"},
+      {size: "large", color: "grey"},
+      {size: "large", color: "brown"},
+      {size: "large", color: "purple"}
+    ];
+
+    let {email, role, teams} = this.props.userInfo;
+    const listTeam = teams.map((item, index) => {
+      let {size, color} = styleTeam[index];
+      return (
+        <Label key={item.id} size={size} color={color}>
+          {item.name}
+        </Label>
+      );
+    });
     return (
       <React.Fragment>
         <Row>
           <Col xs="12" sm="6">
             <Label color="red" size="large" ribbon>
-              <Icon name="mail" />
+              <Icon name="user" />
               {email}
             </Label>
-          </Col>
-          <Col xs="12" sm="6" style={{textAlign: "right"}}>
             <Label color="olive" tag>
               {role}
             </Label>
+          </Col>
+          <Col xs="12" sm="6" style={{textAlign: "right"}}>
+            {listTeam}
           </Col>
         </Row>
       </React.Fragment>

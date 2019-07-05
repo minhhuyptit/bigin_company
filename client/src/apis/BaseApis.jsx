@@ -4,7 +4,6 @@ import {forceLogout} from "./../helpers/ultis";
 export default class BaseApi extends BaseRequest {
   constructor() {
     super();
-    this.baseUri = "http://localhost:7777/vote_food_bigin/server/public/api/";
   }
 
   async invoke(method, url, body = null) {
@@ -28,7 +27,7 @@ export default class BaseApi extends BaseRequest {
       return;
     }
 
-    let url = this.baseUri + apiList[apiName].url;
+    let url = process.env.REACT_APP_URL_SERVER_API + apiList[apiName].url;
     let url_param = null;
     let body = null;
 

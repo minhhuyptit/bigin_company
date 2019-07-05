@@ -14,9 +14,15 @@ class Member extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password', 'del_flag'
+        'password', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at'
     ];
 
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, TeamMember::class, 'member_id', 'team_id')
+        ->where('del_flag', false);
+    }
+    
     public function member_role()
     {
         return $this->belongsTo(Configuration::class, 'role', 'id')->where('del_flag', false);
@@ -25,6 +31,12 @@ class Member extends Authenticatable implements JWTSubject
     public function votes()
     {
         return $this->hasMany(Vote::class, 'member_id', 'id')
+            ->where('del_flag', false);
+    }
+
+    public function leader_of_teams()
+    {
+        return $this->hasMany(Team::class, 'leader', 'id')
             ->where('del_flag', false);
     }
     

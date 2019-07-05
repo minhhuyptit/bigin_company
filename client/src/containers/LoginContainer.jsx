@@ -60,6 +60,8 @@ class LoginContainer extends Component {
       let res = await authenApi.call("login", {
         body: {email, password}
       });
+
+      console.log(res);
       
       if (res.status === 200) {
         this.props.login(res.data); //Save data to Redux LocalStorage

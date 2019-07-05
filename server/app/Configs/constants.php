@@ -1,4 +1,12 @@
 <?php
+    // Url
+    define('URL_IMAGE_MEMBER', 'public/images/member/');
+    define('URL_IMAGE_MEMBER_THUMB', 'public/images/member/thumbnail/');
+
+    define('WIDTH_AVATAR_THUMB', 180);
+    define('HEIGHT_AVATAR_THUMB', 180);
+    define('THUMB_SIZE', WIDTH_AVATAR_THUMB."x".HEIGHT_AVATAR_THUMB);
+
     // Login
     define('LOGIN_SUCCESS', 'LOGIN_SUCCESS');
     define('LOGIN_FAIL', 'LOGIN_FAIL');

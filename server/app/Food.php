@@ -8,7 +8,8 @@ class Food extends Model
 {
     protected $table = 'foods';
     protected $fillable = [
-        'id', 'del_flag', 'name', 'image', 'created_at', 'updated_at'
+        'id', 'del_flag', 'name', 'image', 
+        'created_by', 'modified_by', 'created_at', 'updated_at'
     ];
 
     protected $hidden = [

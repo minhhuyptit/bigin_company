@@ -10,7 +10,6 @@ class ProfileContainer extends Component {
   constructor(props) {
     super(props);
 
-    // this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -19,17 +18,15 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    let {email, role} = this.props.userInfo;
     return (
       <Card id="profile" style={{height: "80%"}}>
         <CardBody>
           <Row className="justify-content-center">
             <Col xs="12">
               <Segment color="teal">
-                <ProfileHeader email={email} role={role} />
+                <ProfileHeader userInfo={this.props.userInfo} />
                 <ProfileForm
                   userInfo={this.props.userInfo}
-                  handleChange={this.handleChange}
                   handleSubmit={this.handleSubmit}
                 />
               </Segment>
