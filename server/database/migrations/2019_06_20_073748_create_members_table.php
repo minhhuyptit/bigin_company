@@ -24,6 +24,8 @@ class CreateMembersTable extends Migration
             $table->string('phone', 11)->nullable();
             $table->string('picture')->nullable()->default('avatar_default.jpg');
             $table->integer('role')->unsigned();
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('modified_by')->unsigned()->nullable();
             $table->timestamps();
             $table->foreign('role')->references('id')->on('configurations')->onUpdate('cascade');
         });

@@ -36,24 +36,23 @@ class ProfileForm extends Component {
   }
 
   handleChange({value}, key) {
-    let { userInfo } = this.state
+    let {userInfo} = this.state;
     userInfo[key] = value;
-    this.setState({ key: value });
+    this.setState({key: value});
   }
 
   handleSubmit() {
     var picture = $("#input-picture")[0].files[0];
-    let data = {...this.state.userInfo, picture}
+    let data = {...this.state.userInfo, picture};
     this.props.handleSubmit(data);
   }
 
   render() {
+    const width = process.env.REACT_APP_WIDTH_AVATAR_THUMB;
+    const height = process.env.REACT_APP_HEIGHT_AVATAR_THUMB;
 
-    const widthAvatarThumb = process.env.REACT_APP_WIDTH_AVATAR_THUMB;
-    const heightAvatarThumb = process.env.REACT_APP_HEIGHT_AVATAR_THUMB;
-
-    let imagePath = process.env.REACT_APP_STORAGE_PUBLIC_SERVER + "images/member/";
-    let imagePathThumb = imagePath + "thumbnail/"+widthAvatarThumb+"x"+heightAvatarThumb+"-";
+    let imagePath = process.env.REACT_APP_MEMBER_IMAGE_PATH;
+    let imagePathThumb = process.env.REACT_APP_MEMBER_IMAGE_THUMB_PATH + width + "x" + height + "-";
 
     let {fullname, birthday, is_male, phone} = this.state.userInfo;
     let {picture} = this.props.userInfo;

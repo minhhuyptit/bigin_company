@@ -15,6 +15,7 @@ Route::post('login', 'MemberController@login');
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('logout', 'MemberController@logout');
     Route::resource('member', 'MemberController');
+    Route::resource('configuration', 'ConfigController');
     Route::post('member/update-profile/{id}', 'MemberController@updateProfile');
 });
 Route::get('hello', function () {

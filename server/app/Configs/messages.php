@@ -107,8 +107,19 @@ class Messages {
         ),
     );
 
+    public static $config = array(
+        GET_CONFIG_SUCCESS => array(
+            'vi' => 'Lấy danh sách cấu hình thành công',
+            'en' => 'Get the configuration list successfully',
+        ),
+        GET_CONFIG_FAIL => array(
+            'vi' => 'Lấy danh sách cấu hình không thành công',
+            'en' => 'Get the configuration list failded',
+        ),
+    );
+
     public static function messages($key_message, $lang = 'en') {
-        $data = array_merge(static::$login, static::$logout, static::$member);
+        $data = array_merge(static::$login, static::$logout, static::$member, static::$config);
         return $data[$key_message][$lang];
     }
 }

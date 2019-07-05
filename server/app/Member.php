@@ -7,8 +7,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Member extends Authenticatable implements JWTSubject
 {
-    // use HasApiTokens;
-    
     protected $table = 'members';
     protected $fillable = [
         'id', 'del_flag', 'email', 'password', 'fullname', 'is_male', 'birthday',
