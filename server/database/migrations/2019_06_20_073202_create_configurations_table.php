@@ -19,6 +19,8 @@ class CreateConfigurationsTable extends Migration
             $table->string('value', 100);
             $table->string('description')->nullable()->default('');
             $table->string('type', 15);
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('modified_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }

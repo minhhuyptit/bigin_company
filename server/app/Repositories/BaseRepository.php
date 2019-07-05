@@ -13,10 +13,19 @@ abstract class BaseRepository implements RepositoryInterface {
     }
 
     public function all() {
+        try {
+            return $this->model->all();
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 
     public function find($id) {
-        return $this->model->find($id);
+        try {
+            return $this->model->find($id);
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 
     public function create(array $data = []) {

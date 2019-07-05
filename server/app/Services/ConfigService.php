@@ -13,15 +13,15 @@ class ConfigService extends BaseService implements ConfigServiceInterface {
 
     public function all() {
         $data = $this->repository->all();
-        if ($data === false) return $this->response(500, GET_ALL_CONFIG_FAIL);
+        if ($data === false) return $this->response(500, GET_CONFIG_FAIL);
         $res = $this->groupByConfig($data);
-        return $this->response(200, GET_ALL_CONFIG_SUCCESS, $res);
+        return $this->response(200, GET_CONFIG_SUCCESS, $res);
     }
 
     public function getConfigByType(string $type) {
         $data = $this->repository->getConfigByType($type);
-        if($data === false) return $this->response(500, GET_ALL_CONFIG_FAIL);
-        return $this->response(200, GET_ALL_CONFIG_SUCCESS, $data);
+        if($data === false) return $this->response(500, GET_CONFIG_FAIL);
+        return $this->response(200, GET_CONFIG_SUCCESS, $data);
     }
 
     private function groupByConfig($data) {

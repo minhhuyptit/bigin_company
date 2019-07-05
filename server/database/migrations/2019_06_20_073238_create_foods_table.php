@@ -18,6 +18,8 @@ class CreateFoodsTable extends Migration
             $table->boolean('del_flag')->default(false);
             $table->string('name', 100);
             $table->string('image');
+            $table->integer('created_by')->unsigned()->nullable();
+            $table->integer('modified_by')->unsigned()->nullable();
             $table->timestamps();
         });
     }
