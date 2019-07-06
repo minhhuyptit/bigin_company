@@ -20,12 +20,15 @@ abstract class BaseService implements ServiceInterface {
         return $this->repository->find($id);
     }
     public function create(array $data = []) {
+        return $this->repository->create($data);
     }
 
     public function update($id, array $data = []) {
+        return $this->repository->update($id, $data);
     }
 
     public function delete($id) {
+        return $this->repository->delete($id);
     }
     public function removeElements($array, $listUnset) {
         foreach ($listUnset as $val) {

@@ -13,6 +13,6 @@ class Team extends Model
     ];
 
     protected $hidden = [
-        'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at'
+        'pivot', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at'
     ];
 }

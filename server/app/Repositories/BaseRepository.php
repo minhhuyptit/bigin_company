@@ -29,11 +29,31 @@ abstract class BaseRepository implements RepositoryInterface {
     }
 
     public function create(array $data = []) {
+        try {
+            return $this->model->create($data);
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 
     public function update($id, array $data = []) {
+        try {
+            $item = $this->model->find($id);
+            if($item === null) return NOT_FOUND;
+            $item->update($data);
+            return $item;
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 
     public function delete($id) {
+        try {
+            $item = $this->model->find($id);
+            if($item === null) return NOT_FOUND;
+            return $item->delete($id);
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 }

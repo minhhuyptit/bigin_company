@@ -7,5 +7,5 @@ use App\Http\Requests\UpdateProfileRequest;
 
 interface ConfigServiceInterface extends ServiceInterface
 {
-    
+    public function getConfigByType(string $type);
 }
