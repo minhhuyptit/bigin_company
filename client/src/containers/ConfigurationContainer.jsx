@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Row, Col, Card, CardBody} from "reactstrap";
-import {Button} from "semantic-ui-react";
+import {Button, Segment} from "semantic-ui-react";
 
 import MenuConfiguration from "./../components/Configuration/MenuConfiguration";
 import TableConfiguration from "./../components/Configuration/TableConfiguration";
@@ -67,10 +67,16 @@ class ConfigurationContainer extends Component {
     });
   }
 
-  handleDelete() {}
+  handleDelete(id) {
+    this.props.deleteConfig(id);
+  }
 
   handleSubmit(item) {
-    console.log(item);
+    if (this.state.itemSelected === null) {
+      this.props.addConfig(item);
+    } else {
+      this.props.editConfig(item);
+    }
   }
 
   render() {
@@ -78,9 +84,10 @@ class ConfigurationContainer extends Component {
     return (
       <Card style={{height: "80%"}}>
         <CardBody>
+        <Segment color="orange">
           <Row>
             <Col sm={3}>
-              <Button icon="add" content="Add" color="teal" onClick={this.handleAdd} />
+              <Button icon="add" content="Add" color="orange" onClick={this.handleAdd} />
               <MenuConfiguration
                 menu={Object.keys(this.props.data)}
                 activeItem={activeItem}
@@ -95,6 +102,7 @@ class ConfigurationContainer extends Component {
               />
             </Col>
           </Row>
+          </Segment>
           <AddEditConfigurationModal
             toggle={this.toggleModal}
             showForm={showForm}
@@ -121,6 +129,15 @@ const mapDispatchToProps = dispatch => ({
   },
   getConfigByType: type => {
     dispatch.config.asyncGetConfigByType(type);
+  },
+  addConfig: item => {
+    dispatch.config.asyncCreateConfig(item)
+  },
+  editConfig: item => {
+    dispatch.config.asyncUpdateConfig(item);
+  },
+  deleteConfig: id => {
+    dispatch.config.asyncDeleteConfig(id);
   }
 });
 

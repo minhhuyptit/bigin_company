@@ -23,7 +23,7 @@ class TableConfiguration extends Component {
   actionFormatter(cell, row, context) {
     return (
       <div style={{textAlign: "center"}}>
-        <Button size='mini' color='blue' onClick={() => context.handleEdit(row)}>
+        <Button size='mini' color='teal' onClick={() => context.handleEdit(row)}>
           Edit
         </Button>
         <Button size='mini' color='red' onClick={() => context.openConfirm(row.id)}>

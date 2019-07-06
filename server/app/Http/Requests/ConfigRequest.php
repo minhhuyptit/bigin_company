@@ -2,22 +2,20 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Configs\Messages;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 require_once app_path() . '/configs/constants.php';
 
-class ConfigRequest extends FormRequest
-{
+class ConfigRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -26,30 +24,30 @@ class ConfigRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
+        $rule = [
+            'value' => 'bail|required',
+        ];
+        if ($this->getMethod() == 'POST') {
+            $rule += ['type' => 'bail|required'];
+        }
+        return $rule;
+    }
+
+    public function messages() {
         return [
-            'value'        => 'bail|required',
-            'type'         => 'bail|required'
+            'value.required' => EMPTY_VALUE,
+            'type.required' => EMPTY_TYPE,
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'value.required'    => EMPTY_VALUE,
-            'type.required'     => EMPTY_TYPE
-        ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
+    protected function failedValidation(Validator $validator) {
         $error = $validator->errors()->first();
         throw new HttpResponseException(response()->json(
             [
-                'status'  => 404,
+                'status' => 404,
                 'message' => Messages::messages($error),
-                'data'    => []
+                'data' => [],
             ]
         ));
     }

@@ -23,7 +23,7 @@ class ProfileContainer extends Component {
         <CardBody>
           <Row className="justify-content-center">
             <Col xs="12">
-              <Segment color="teal">
+              <Segment color="orange">
                 <ProfileHeader userInfo={this.props.userInfo} />
                 <ProfileForm
                   userInfo={this.props.userInfo}

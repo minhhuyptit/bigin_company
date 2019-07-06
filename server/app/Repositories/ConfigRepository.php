@@ -13,7 +13,7 @@ class ConfigRepository extends BaseRepository implements ConfigRepositoryInterfa
         $this->model = $member;
     }    
 
-    public function getConfigByType($type){
+    public function getConfigByType(string $type){
         try{
             $res = $this->model->select('id','value','description','type')
                                ->where('type', $type)->get();

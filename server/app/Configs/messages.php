@@ -94,15 +94,15 @@ class Messages {
             'en' => 'Member not found. Please check again',
         ),
         UPLOAD_AVATAR_NOT_SUCCESS => array(
-            'vi' => 'Cập nhật ảnh đại diện không thành công. Vui lòng kiểm tra lại', 
+            'vi' => 'Cập nhật ảnh đại diện không thành công. Vui lòng kiểm tra lại',
             'en' => 'Update avatar image failed. Please check again',
         ),
         UPDATE_MEMBER_NOT_SUCCESS => array(
-            'vi' => 'Cập nhật thông tin thành viên không thành công. Vui lòng kiểm tra lại', 
+            'vi' => 'Cập nhật thông tin thành viên không thành công. Vui lòng kiểm tra lại',
             'en' => 'Update membership information failed. Please check again',
         ),
         UPDATE_PROFILE_SUCCESS => array(
-            'vi' => 'Cập nhật hồ sơ thành công', 
+            'vi' => 'Cập nhật hồ sơ thành công',
             'en' => 'Update profile successfully',
         ),
     );
@@ -115,6 +115,42 @@ class Messages {
         GET_CONFIG_FAIL => array(
             'vi' => 'Lấy danh sách cấu hình không thành công',
             'en' => 'Get the configuration list failded',
+        ),
+        EMPTY_TYPE => array(
+            'vi' => 'Loại cấu hình không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Type cannot be empty. Please check again',
+        ),
+        EMPTY_VALUE => array(
+            'vi' => 'Giá trị cấu hình không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Value cannot be empty. Please check again',
+        ),
+        CONFIG_NOT_FOUND => array(
+            'vi' => 'Không tìm thấy cấu hình',
+            'en' => 'Configuration not found',
+        ),
+        CREATE_CONFIG_SUCCESS => array(
+            'vi' => 'Thêm cấu hình thành công',
+            'en' => 'Create configuration successfully',
+        ),
+        CREATE_CONFIG_FAIL => array(
+            'vi' => 'Thêm cấu hình thất bại',
+            'en' => 'Create configuration failded',
+        ),
+        UPDATE_CONFIG_SUCCESS => array(
+            'vi' => 'Cập nhật cấu hình thành công',
+            'en' => 'Update configuration successfully',
+        ),
+        UPDATE_CONFIG_FAIL => array(
+            'vi' => 'Cập nhật cấu hình thất bại',
+            'en' => 'Update configuration failded',
+        ),
+        DELETE_CONFIG_SUCCESS => array(
+            'vi' => 'Xóa cấu hình thành công',
+            'en' => 'Delete configuration successfully',
+        ),
+        DELETE_CONFIG_FAIL => array(
+            'vi' => 'Xóa cấu hình thất bại',
+            'en' => 'Delete configuration failded',
         ),
     );
 

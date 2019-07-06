@@ -70,7 +70,7 @@ class LoginContainer extends Component {
           style: notify.SUCCESS,
           title: notify.TITLE_LOGIN_SUCCESS,
           content: res.message,
-          timeout: 200
+          timeout: 50
       }
       this.props.changeNotify(option);
       } else {
@@ -96,7 +96,7 @@ class LoginContainer extends Component {
         </video>
         <Row className="justify-content-center">
           <Col lg="4" md="6" sm="8" xs="10" className="form-login">
-            <Segment color="red">
+            <Segment color="orange">
               <Card fluid>
                 <Card.Content>
                   <Loader size="massive" active={isLoading} />

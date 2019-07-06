@@ -63,4 +63,24 @@ export default class BaseRequest {
       };
     }
   }
+
+  async delete(url) {
+    try {
+      let res = await axios.delete(url, {
+        headers: {
+          Authorization: "Bearer " + this.getAccessToken()
+        }
+      });
+      console.log(res.data);
+      return {
+        status: res.status,
+        data: res.data
+      };
+    } catch (error) {
+      return {
+        status: error.response.status,
+        message: error.response.data.message
+      };
+    }
+  }
 }

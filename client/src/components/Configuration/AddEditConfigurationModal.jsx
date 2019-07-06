@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, Input, TextArea, Dropdown} from "semantic-ui-react";
+import {Button, Form, Input, TextArea, Dropdown, Label} from "semantic-ui-react";
 import {Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 
 class AddEditConfigurationModal extends Component {
@@ -62,7 +62,7 @@ class AddEditConfigurationModal extends Component {
     }
     //Case Edit
     let {id, type, value, description} = itemSelected;
-    return (itemSelected.id != prevState.form.id) ? {form: {id, type, value, description}} : null;
+    return itemSelected.id != prevState.form.id ? {form: {id, type, value, description}} : null;
   }
 
   render() {
@@ -97,41 +97,45 @@ class AddEditConfigurationModal extends Component {
     }
     return (
       <Modal style={{marginTop: "15vh"}} toggle={toggle} isOpen={showForm} className="modal-md">
-        <ModalHeader className="color-teal">{itemSelected != null ? "Edit " : "Add "}Configuration</ModalHeader>
-        <ModalBody>
-          <Form className="add-edit-form">
-            {dropdownType}
-            <Form.Field
-              label="Value"
-              name="value"
-              control={Input}
-              value={value}
-              onChange={(e, {value}) => {
-                this.handleChange(value, "value");
-              }}
-              placeholder="Value"
-              required
-            />
-            <Form.Field>
-              <label>Description</label>
-              <TextArea
-                name="description"
-                className="textarea-form"
-                placeholder="Tell us more"
-                value={description}
+          <ModalHeader className="color-teal">
+            <Label color='orange' ribbon>
+              {itemSelected != null ? "Edit " : "Add "}Configuration
+            </Label>
+          </ModalHeader>
+          <ModalBody>
+            <Form className="add-edit-form">
+              {dropdownType}
+              <Form.Field
+                label="Value"
+                name="value"
+                control={Input}
+                value={value}
                 onChange={(e, {value}) => {
-                  this.handleChange(value, "description");
+                  this.handleChange(value, "value");
                 }}
+                placeholder="Value"
+                required
               />
-            </Form.Field>
-          </Form>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="teal" onClick={this.handleSubmit}>
-            {itemSelected != null ? "Update" : "Add"}
-          </Button>
-          <Button onClick={this.close}>Cancel</Button>
-        </ModalFooter>
+              <Form.Field>
+                <label>Description</label>
+                <TextArea
+                  name="description"
+                  className="textarea-form"
+                  placeholder="Description something...."
+                  value={description}
+                  onChange={(e, {value}) => {
+                    this.handleChange(value, "description");
+                  }}
+                />
+              </Form.Field>
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="teal" onClick={this.handleSubmit}>
+              {itemSelected != null ? "Update" : "Add"}
+            </Button>
+            <Button onClick={this.close}>Cancel</Button>
+          </ModalFooter>
       </Modal>
     );
   }
