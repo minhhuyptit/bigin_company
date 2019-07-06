@@ -17,9 +17,9 @@ class ConfigController extends Controller {
     }
 
     public function store(ConfigRequest $request) {
-        $arrayConfig = $request->only('value', 'type', 'description');
-        $arrayConfig['created_by'] = $request->user()->id;
-        $res = $this->service->create($arrayConfig);
+        $arrRequest = $request->only('value', 'type', 'description');
+        $arrRequest['created_by'] = $request->user()->id;
+        $res = $this->service->create($arrRequest);
         return $this->responseCommon($res, CREATE_CONFIG_SUCCESS, CREATE_CONFIG_FAIL);
     }
 
@@ -28,9 +28,9 @@ class ConfigController extends Controller {
     }
 
     public function update(ConfigRequest $request, $id) {
-        $arrayConfig = $request->only('value', 'type', 'description');
-        $arrayConfig['modified_by'] = $request->user()->id;
-        $res = $this->service->update($id, $arrayConfig);
+        $arrRequest = $request->only('value', 'type', 'description');
+        $arrRequest['modified_by'] = $request->user()->id;
+        $res = $this->service->update($id, $arrRequest);
         return $this->responseCommon($res, UPDATE_CONFIG_SUCCESS, UPDATE_CONFIG_FAIL, CONFIG_NOT_FOUND);
     }
 

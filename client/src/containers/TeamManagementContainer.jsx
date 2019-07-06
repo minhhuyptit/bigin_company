@@ -15,9 +15,9 @@ class TeamManagementContainer extends Component {
     };
   }
 
-  componentWillMount() {
-    this.props.getTeams();
-  }
+  // componentWillMount() {
+  //   this.props.getTeams();
+  // }
 
   render() {
     console.log(this.props.allTeam);

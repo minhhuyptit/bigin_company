@@ -16,9 +16,9 @@ Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('logout', 'MemberController@logout');
     Route::resource('member', 'MemberController');
     Route::resource('configuration', 'ConfigController');
+    Route::resource('team', 'TeamController');
+    Route::resource('team_member', 'TeamMemberController');
+    Route::get('team/{id}/members', 'TeamController@listMember');
     Route::post('member/update-profile/{id}', 'MemberController@updateProfile');
-});
-Route::get('hello', function () {
-    return "Xin chào";
 });
 Route::get('token/refresh', 'MemberController@refresh')->middleware('jwt.refresh');

@@ -16,7 +16,7 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
-            $table->string('name', 100);
+            $table->string('name', 100)->unique();
             $table->integer('leader')->unsigned();
             $table->string('description')->nullable()->default('');
             $table->integer('created_by')->unsigned()->nullable();

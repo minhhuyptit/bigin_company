@@ -14,13 +14,18 @@ class Member extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at'
+        'password', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at', 'pivot'
     ];
 
     public function teams()
     {
         return $this->belongsToMany(Team::class, TeamMember::class, 'member_id', 'team_id')
         ->where('del_flag', false);
+    }
+
+    public function team_members()
+    {
+        return $this->hasMany(TeamMember::class, 'member_id', 'id');
     }
     
     public function member_role()

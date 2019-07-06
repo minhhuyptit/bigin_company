@@ -17,9 +17,20 @@ export default {
         name: 'Management',
       },
       {
-        name: 'Member Management',
-        icon: 'fa fa-users fa-lg',
-        url: '/team'
+        name: 'Management',
+        icon: 'fa fa-cog fa-lg',
+        children: [
+          {
+            name: 'Team Management',
+            url: '/management/team',
+            icon: 'fa fa-users fa-lg'
+          },
+          {
+            name: 'Member Management',
+            url: '/management/member',
+            icon: 'fa fa-user fa-lg'
+          }
+        ]
       },
       {
         name: 'Configuration',

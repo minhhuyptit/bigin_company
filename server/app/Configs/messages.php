@@ -3,6 +3,22 @@
 namespace App\Configs;
 
 class Messages {
+    // Common
+    public static $common = array(
+        MEMBER_MUST_BE_NUMERIC => array(
+            'vi' => 'Thành viên phải là kiểu số. Vui lòng kiểm tra lại',
+            'en' => 'Member must be numeric. Please check again',
+        ),
+        TEAM_MUST_BE_NUMERIC => array(
+            'vi' => 'Nhóm phải là kiểu số. Vui lòng kiểm tra lại',
+            'en' => 'Team must be numeric. Please check again',
+        ),
+        TEAM_MEMBER_MUST_BE_NUMERIC => array(
+            'vi' => 'Vai trò của thành viên trong nhóm phải là kiểu số. Vui lòng kiểm tra lại',
+            'en' => 'The role of team member must be numeric. Please check again',
+        ),
+    );
+
     // Login
     public static $login = array(
         LOGIN_SUCCESS => array(
@@ -125,8 +141,8 @@ class Messages {
             'en' => 'Value cannot be empty. Please check again',
         ),
         CONFIG_NOT_FOUND => array(
-            'vi' => 'Không tìm thấy cấu hình',
-            'en' => 'Configuration not found',
+            'vi' => 'Không tìm thấy cấu hình. Vui lòng kiểm tra lại',
+            'en' => 'Configuration not found. Please check again',
         ),
         CREATE_CONFIG_SUCCESS => array(
             'vi' => 'Thêm cấu hình thành công',
@@ -154,8 +170,127 @@ class Messages {
         ),
     );
 
+    public static $team = array(
+        GET_ALL_TEAM_SUCCESS => array(
+            'vi' => 'Lấy danh sách nhóm thành công',
+            'en' => 'Get the team list successfully',
+        ),
+        GET_ALL_TEAM_FAIL => array(
+            'vi' => 'Lấy danh sách nhóm thất bại',
+            'en' => 'Get the team list failded',
+        ),
+        TEAM_NOT_FOUND => array(
+            'vi' => 'Không tìm thấy team. Vui lòng kiểm tra lại',
+            'en' => 'Team not found. Please check again',
+        ),
+        GET_MEMBERS_OF_TEAM_SUCCESS => array(
+            'vi' => 'Lấy danh sách thành viên của nhóm thành công',
+            'en' => 'Get the list of members of the group successfully',
+        ),
+        GET_MEMBERS_OF_TEAM_FAIL => array(
+            'vi' => 'Lấy danh sách thành viên của nhóm thất bại',
+            'en' => 'Get the list of members of the group failded',
+        ),
+        EMPTY_TEAM_NAME => array(
+            'vi' => 'Tên nhóm không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Team name cannot be empty. Please check again',
+        ),
+        IDENTICAL_TEAM_NAME => array(
+            'vi' => 'Tên nhóm đã tồn tại rồi. Vui lòng kiểm tra lại',
+            'en' => 'Team name already exists. Please check again',
+        ),
+        EMPTY_LEADER => array(
+            'vi' => 'Trưởng nhóm không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Leader cannot be empty. Please check again',
+        ),
+        LEADER_NOT_EXIST => array(
+            'vi' => 'Trưởng nhóm không tồn tại. Vui lòng kiểm tra lại',
+            'en' => 'Team leader does not exist. Please check again',
+        ),
+        CREATE_TEAM_SUCCESS => array(
+            'vi' => 'Thêm nhóm thành công',
+            'en' => 'Create team successfully',
+        ),
+        CREATE_TEAM_FAIL => array(
+            'vi' => 'Thêm nhóm thất bại',
+            'en' => 'Create team failded',
+        ),
+        UPDATE_TEAM_SUCCESS => array(
+            'vi' => 'Cập nhật thông tin nhóm thành công',
+            'en' => 'Update team information successfully',
+        ),
+        UPDATE_TEAM_FAIL => array(
+            'vi' => 'Cập nhật thông tin nhóm thất bại',
+            'en' => 'Update team information failded',
+        ),
+        DELETE_TEAM_SUCCESS => array(
+            'vi' => 'Xóa nhóm thành công',
+            'en' => 'Delete team successfully',
+        ),
+        DELETE_TEAM_FAIL => array(
+            'vi' => 'Xóa nhóm thất bại',
+            'en' => 'Delete team failded',
+        ),
+    );
+
+    public static $team_member = array(
+        EMPTY_MEMBER => array(
+            'vi' => 'Thành viên không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Member cannot be empty. Please check again',
+        ),
+        MEMBER_NOT_EXIST => array(
+            'vi' => 'Thành viên không tồn tại. Vui lòng kiểm tra lại',
+            'en' => 'Member does not exist. Please check again',
+        ),
+        EMPTY_TEAM => array(
+            'vi' => 'Nhóm không thể rỗng. Vui lòng kiểm tra lại',
+            'en' => 'Team cannot be empty. Please check again',
+        ),
+        TEAM_NOT_EXIST => array(
+            'vi' => 'Nhóm không tồn tại. Vui lòng kiểm tra lại',
+            'en' => 'Team does not exist. Please check again',
+        ),
+        EMPTY_TEAM_MEMBER_ROLE => array(
+            'vi' => 'Vai trò của thành viên trong nhóm không thễ rỗng. Vui lòng kiểm tra lại',
+            'en' => 'The role of the team member is not empty. Please check again',
+        ),
+        TEAM_MEMBER_ROLE_NOT_EXIST => array(
+            'vi' => 'Vai trò của thành viên trong nhóm không tồn tại. Vui lòng kiểm tra lại',
+            'en' => 'The role of the team member does not exist. Please check again',
+        ),
+        IDENTICAL_TEAM_MEMBER => array(
+            'vi' => 'Thành viên này đã tồn tại trong nhóm. Vui lòng kiểm tra lại',
+            'en' => 'This member already exists in the group. Please check again',
+        ),
+        CREATE_TEAM_MEMBER_SUCCESS => array(
+            'vi' => 'Thêm thành viên vào nhóm thành công',
+            'en' => 'Add member to team successfully',
+        ),
+        CREATE_TEAM_MEMBER_FAIL => array(
+            'vi' => 'Thêm thành viên vào nhóm thất bại',
+            'en' => 'Add member to team failded',
+        ),
+        DELETE_TEAM_MEMBER_SUCCESS => array(
+            'vi' => 'Xóa thành viên vào nhóm thành công',
+            'en' => 'Delete member to team successfully',
+        ),
+        DELETE_TEAM_MEMBER_FAIL => array(
+            'vi' => 'Xóa thành viên vào nhóm thất bại',
+            'en' => 'Delete member to team failded',
+        ),
+        TYPE_CONFIG_INCORRECT => array(
+            'vi' => 'Loại cấu hình không chính xác. Vui lòng kiểm tra lại',
+            'en' => 'Incorrect configuration type. Please check again',
+        ),
+        TEAM_MEMBER_NOT_FOUND => array(
+            'vi' => 'Team member không tìm thấy. Vui lòng kiểm tra lại',
+            'en' => 'Team member not found. Please check again',
+        ),
+    );
+
     public static function messages($key_message, $lang = 'en') {
-        $data = array_merge(static::$login, static::$logout, static::$member, static::$config);
+        $data = array_merge(static::$common, static::$login, static::$logout, static::$member,
+            static::$config, static::$team, static::$team_member);
         return $data[$key_message][$lang];
     }
 }
