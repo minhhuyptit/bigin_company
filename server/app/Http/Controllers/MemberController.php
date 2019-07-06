@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Services\MemberService;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateProfileRequest;
 use JWTAuth;
 
 class MemberController extends Controller {
@@ -17,8 +16,6 @@ class MemberController extends Controller {
 
     public function index() {}
 
-    public function create() {}
-
     public function store(Request $request) {
         return $request;
     }
@@ -27,15 +24,13 @@ class MemberController extends Controller {
 
     }
 
-    public function edit($id) {}
-
     public function update(Request $request, $id) {
     }
 
     public function destroy($id) {}
 
     public function login(Request $request) {
-        $credentials = $request->only('email','password');
+        $credentials = $request->only('email', 'password');
         return $this->service->login($credentials);
     }
 

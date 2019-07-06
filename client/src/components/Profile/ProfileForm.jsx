@@ -73,7 +73,7 @@ class ProfileForm extends Component {
             </Label>
             <Modal style={{maxWidth: "450px"}} toggle={this.toggle} isOpen={this.state.showAvatar}>
               <ModalHeader toggle={this.toggle}>
-                <Label size="small" color="brown" content="Avatar" tag />
+                <Label size="small" color="orange" content="Avatar" tag />
               </ModalHeader>
               <ModalBody>
                 <Image centered src={imagePath + picture} />
@@ -84,7 +84,7 @@ class ProfileForm extends Component {
             </Modal>
           </Col>
           <Col sm={6}>
-            <Segment color="teal">
+            <Segment color="blue">
               <Form.Field>
                 <Input
                   required

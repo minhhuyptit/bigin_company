@@ -22,7 +22,9 @@ abstract class BaseRepository implements RepositoryInterface {
 
     public function find($id) {
         try {
-            return $this->model->find($id);
+            $item = $this->model->find($id);
+            if($item === null) return NOT_FOUND;
+            return $item;
         } catch (\Exception $ex) {
             return false;
         }

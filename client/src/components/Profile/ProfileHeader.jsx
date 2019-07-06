@@ -5,11 +5,11 @@ import {Label, Icon} from "semantic-ui-react";
 class ProfileHeader extends Component {
   render() {
     const styleTeam = [
-      {size: "small", color: "blue"},
-      {size: "medium", color: "green"},
-      {size: "large", color: "grey"},
-      {size: "large", color: "brown"},
-      {size: "large", color: "purple"}
+      {size: "small", color: "purple"},
+      {size: "medium", color: "brown"},
+      {size: "large", color: "orange"},
+      {size: "large", color: "blue"},
+      {size: "large", color: "red"}
     ];
 
     let {email, role, teams} = this.props.userInfo;

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Configs\Messages;
 use App\Repositories\BaseRepository;
 use App\Services\Contracts\ServiceInterface;
+use JWTAuth;
 
 abstract class BaseService implements ServiceInterface {
     protected $repository;
@@ -34,6 +35,12 @@ abstract class BaseService implements ServiceInterface {
         foreach ($listUnset as $val) {
             unset($array[$val]);
         }
+    }
+    public function getIdUserFromToken() {
+        $header = apache_request_headers();
+        $token = str_replace("Bearer ", "", $header['Authorization']);
+        $idUser = JWTAuth::toUser($token)->id;
+        return $idUser;
     }
 
     public function response($status = 404, $message = '', $data = []) {

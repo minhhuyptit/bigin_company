@@ -16,8 +16,6 @@ class ConfigController extends Controller {
         return $this->service->all();
     }
 
-    public function create() {}
-
     public function store(ConfigRequest $request) {
         $arrayConfig = $request->only('value', 'type', 'description');
         $arrayConfig['created_by'] = $request->user()->id;
@@ -29,8 +27,6 @@ class ConfigController extends Controller {
         return $this->service->getConfigByType($type);
     }
 
-    public function edit($id) {}
-
     public function update(ConfigRequest $request, $id) {
         $arrayConfig = $request->only('value', 'type', 'description');
         $arrayConfig['modified_by'] = $request->user()->id;
@@ -39,7 +35,6 @@ class ConfigController extends Controller {
     }
 
     public function destroy($id) {
-        $res = $this->service->delete($id);
-        return $this->responseCommon($res, DELETE_CONFIG_SUCCESS, DELETE_CONFIG_FAIL, CONFIG_NOT_FOUND);
+        return $this->service->delete($id);
     }
 }

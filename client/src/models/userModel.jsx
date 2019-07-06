@@ -35,40 +35,20 @@ export const user = {
     }
   },
   effects: {
-    async asyncUpdateProfile(data) {
-      let formData = new FormData();
-      formData.set("fullname", data["fullname"]);
-      formData.set("birthday", data["birthday"]);
-      formData.set("is_male", +data["is_male"]);
-      formData.set("phone", data["phone"]);
-      if (data["picture"] !== undefined) {
-        formData.append("picture", data["picture"]);
-      }
+    async asyncUpdateProfile(user) {
+      let formData = createFormData(user);
       let res = await authenApi.call("updateProfile", {
         body: formData,
         url: {
-          id: data["id"]
+          id: user["id"]
         }
       });
-      console.log(res);
+
       if (res.status === 200) {
-        //throw undefined when token expired
         this.login(res.data);
-        let option = {
-          style: notify.SUCCESS,
-          title: notify.TITLE_UPDATE_SUCCESS,
-          content: res.message,
-          timeout: 1500
-        };
-        store.dispatch.notify.changeNotification(option);
+        Notification(notify.SUCCESS, notify.TITLE_UPDATE_SUCCESS, res.message, 1500);
       } else {
-        let option = {
-          style: notify.DANGER,
-          title: notify.TITLE_UPDATE_FAIL,
-          content: res.message,
-          timeout: 2500
-        };
-        store.dispatch.notify.changeNotification(option);
+        Notification(notify.DANGER, notify.TITLE_UPDATE_FAIL, res.message, 2500);
       }
     },
 
@@ -80,3 +60,21 @@ export const user = {
     }
   }
 };
+
+function createFormData(user) {
+  let {fullname, birthday, is_male, phone, picture} = user;
+  let formData = new FormData();
+  formData.set("fullname", fullname);
+  formData.set("birthday", birthday);
+  formData.set("is_male", +is_male);
+  formData.set("phone", phone);
+  if (picture !== undefined) {
+    formData.append("picture", picture);
+  }
+  return formData;
+}
+
+function Notification(style, title, content, timeout) {
+  let option = {style, title, content, timeout};
+  store.dispatch.notify.changeNotification(option);
+}
