@@ -3,9 +3,13 @@
     define('URL_IMAGE_MEMBER', 'public/images/member/');
     define('URL_IMAGE_MEMBER_THUMB', 'public/images/member/thumbnail/');
 
-    define('WIDTH_AVATAR_THUMB', 180);
-    define('HEIGHT_AVATAR_THUMB', 180);
-    define('THUMB_SIZE', WIDTH_AVATAR_THUMB."x".HEIGHT_AVATAR_THUMB);
+    define('WIDTH_THUMB_180', 180);
+    define('HEIGHT_THUMB_180', 180);
+    define('THUMB_SIZE_180', WIDTH_THUMB_180."x".HEIGHT_THUMB_180);
+
+    define('HEIGHT_THUMB_50', 50);
+    define('WIDTH_THUMB_50', 50);
+    define('THUMB_SIZE_50', WIDTH_THUMB_50."x".HEIGHT_THUMB_50);
 
     // Common
     define('NOT_FOUND', 'NOT_FOUND');
@@ -41,6 +45,8 @@
     define('UPLOAD_AVATAR_NOT_SUCCESS', 'UPLOAD_AVATAR_NOT_SUCCESS');
     define('UPDATE_MEMBER_NOT_SUCCESS', 'UPDATE_MEMBER_NOT_SUCCESS');
     define('UPDATE_PROFILE_SUCCESS', 'UPDATE_PROFILE_SUCCESS');
+    define('GET_ALL_MEMBER_SUCCESS', 'GET_ALL_MEMBER_SUCCESS');
+    define('GET_ALL_MEMBER_FAIL', 'GET_ALL_MEMBER_FAIL');
 
     // Config
     define('GET_CONFIG_SUCCESS', 'GET_CONFIG_SUCCESS');
@@ -65,6 +71,8 @@
     define('IDENTICAL_TEAM_NAME', 'IDENTICAL_TEAM_NAME');
     define('EMPTY_LEADER', 'EMPTY_LEADER');
     define('LEADER_NOT_EXIST', 'LEADER_NOT_EXIST');
+    define('GET_TEAM_SUCCESS', 'GET_TEAM_SUCCESS');
+    define('GET_TEAM_FAIL', 'GET_TEAM_FAIL');
     define('CREATE_TEAM_SUCCESS', 'CREATE_TEAM_SUCCESS');
     define('CREATE_TEAM_FAIL', 'CREATE_TEAM_FAIL');
     define('UPDATE_TEAM_SUCCESS', 'UPDATE_TEAM_SUCCESS');

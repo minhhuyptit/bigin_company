@@ -1,8 +1,35 @@
 import React, {Component} from "react";
-
+import {Button} from "semantic-ui-react";
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
 
 class ListTeam extends Component {
+  constructor(props) {
+    super(props);
+
+    this.openConfirm = this.openConfirm.bind(this);
+  }
+  openConfirm(event, id) {
+    event.stopPropagation();
+    var result = window.confirm("Are you sure you want to delete this ?");
+    if (result === true) {
+      this.props.handleDelete(id);
+    }
+  }
+  showListTeamMember(row) {
+    this.props.history.push("/management/team/detail/" + row.id);
+  }
+
+  actionFormatter(cell, row, context) {
+    return (
+      <div style={{textAlign: "center"}}>
+        <Button size="mini" color="red" onClick={e => context.openConfirm(e, row.id)}>
+          Delete
+        </Button>
+      </div>
+    );
+  }
   render() {
     let context = this;
     const tableOptions = {
@@ -41,8 +68,8 @@ class ListTeam extends Component {
         <TableHeaderColumn dataField="name" width="16%">
           Name
         </TableHeaderColumn>
-        <TableHeaderColumn dataField="pic" width="20%">
-          PIC
+        <TableHeaderColumn dataField="leader" width="20%">
+          Leader
         </TableHeaderColumn>
         <TableHeaderColumn dataField="description" width="50%">
           Description
@@ -55,4 +82,4 @@ class ListTeam extends Component {
   }
 }
 
-export default ListTeam;
+export default withRouter(connect(null, null)(ListTeam));

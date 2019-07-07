@@ -4,7 +4,10 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 
 import ListTeam from "./../components/Team/ListTeam";
+import {Segment, Label} from "semantic-ui-react";
 // import AddTeamModal from "./../components/TeamManagement/AddTeamModal";
+
+import "./css/management.scss";
 
 class TeamManagementContainer extends Component {
   constructor(props) {
@@ -15,12 +18,11 @@ class TeamManagementContainer extends Component {
     };
   }
 
-  // componentWillMount() {
-  //   this.props.getTeams();
-  // }
+  componentWillMount() {
+    this.props.getTeams();
+  }
 
   render() {
-    console.log(this.props.allTeam);
     return (
       <Card className="team-management-container" style={{height: "80%"}}>
         <CardBody>
@@ -28,7 +30,10 @@ class TeamManagementContainer extends Component {
           /> */}
           <Row>
             <Col sm={{size: 12}}>
-              <ListTeam />
+              <Label icon="group" color="orange" size="large" content="Team Management" />
+              <Segment color="orange">
+                <ListTeam data={this.props.allTeam} />
+              </Segment>
             </Col>
           </Row>
         </CardBody>

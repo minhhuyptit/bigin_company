@@ -48,11 +48,8 @@ class ProfileForm extends Component {
   }
 
   render() {
-    const width = process.env.REACT_APP_WIDTH_AVATAR_THUMB;
-    const height = process.env.REACT_APP_HEIGHT_AVATAR_THUMB;
-
     let imagePath = process.env.REACT_APP_MEMBER_IMAGE_PATH;
-    let imagePathThumb = process.env.REACT_APP_MEMBER_IMAGE_THUMB_PATH + width + "x" + height + "-";
+    let imagePathThumb = process.env.REACT_APP_THUMB_SIZE_180 + "-";
 
     let {fullname, birthday, is_male, phone} = this.state.userInfo;
     let {picture} = this.props.userInfo;

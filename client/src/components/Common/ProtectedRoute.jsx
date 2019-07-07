@@ -1,6 +1,6 @@
 import React from "react";
 import {Redirect, Route} from "react-router-dom";
-import {isLoggedIn} from "./../../helpers/ultis";
+import {isLoggedIn} from "../../helpers/token";
 
 function authen(authenType) {
   return authenType === "isLogin" ? isLoggedIn() : false;

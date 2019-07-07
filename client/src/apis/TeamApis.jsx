@@ -7,6 +7,24 @@ export default class TeamApi extends BaseApi{
             getAllTeam: {
                 url: 'team',
                 method: 'get'
+            },
+            getTeamMembersList: {
+                url: 'team/{id}/members',
+                method: 'get',
+                payload: {
+                    url:{
+                        id: ""
+                    }
+                }
+            },
+            getInfoTeam: {
+                url: 'team/{id}',
+                method: 'get',
+                payload: {
+                    url:{
+                        id: ""
+                    }
+                }
             }
         }
     }

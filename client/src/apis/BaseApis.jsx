@@ -1,5 +1,5 @@
 import BaseRequest from "./BaseRequest";
-import {forceLogout} from "./../helpers/ultis";
+import {forceLogout} from "./../helpers/token";
 
 export default class BaseApi extends BaseRequest {
   constructor() {

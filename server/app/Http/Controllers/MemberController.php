@@ -14,7 +14,9 @@ class MemberController extends Controller {
         $this->service = $memberServices;
     }
 
-    public function index() {}
+    public function index() {
+        return $this->service->all();
+    }
 
     public function store(Request $request) {
         return $request;

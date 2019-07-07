@@ -21,6 +21,19 @@ class MemberService extends BaseService implements MemberServiceInterface {
         $this->repository = $memberRepository;
     }
 
+    // Overide
+    public function all() {
+        $data = parent::all();
+        if ($data === false) {
+            return $this->response(500, GET_ALL_MEMBER_SUCCESS);
+        }
+        foreach ($data as $val) {
+            $listUnset = ['email', 'is_male', 'birthday', 'phone', 'role'];
+            $this->removeElements($val, $listUnset);
+        }
+        return $this->response(200, GET_ALL_MEMBER_FAIL, $data);
+    }
+
     public function login(array $credentials) {
         $token = $this->repository->login($credentials);
         return $this->responseLogin($token);
@@ -92,12 +105,16 @@ class MemberService extends BaseService implements MemberServiceInterface {
 
     private function uploadAvatar($file, $nameOldPicture) {
         $nameOriginPicture = uniqid("avatar-") . "." . $file->getClientOriginalExtension();
-        $nameThumbPicture = THUMB_SIZE . "-" . $nameOriginPicture;
-        $thumbnailPath = public_path("storage/images/member/thumbnail/" . $nameThumbPicture);
+        $nameThumb180 = THUMB_SIZE_180 . "-" . $nameOriginPicture;
+        $nameThumb50 = THUMB_SIZE_50 . "-" . $nameOriginPicture;
+        $thumbPath180 = public_path("storage/images/member/thumbnail/" . $nameThumb180);
+        $thumbPath50 = public_path("storage/images/member/thumbnail/" . $nameThumb50);
         try {
             $file->storeAs(URL_IMAGE_MEMBER, $nameOriginPicture); //Store Image Origin
-            $file->storeAs(URL_IMAGE_MEMBER_THUMB, $nameThumbPicture); //Store Image Thumbnail
-            Image::make($thumbnailPath)->resize(WIDTH_AVATAR_THUMB, HEIGHT_AVATAR_THUMB)->save($thumbnailPath);
+            $file->storeAs(URL_IMAGE_MEMBER_THUMB, $nameThumb180); //Store Image Thumbnail 180x180
+            $file->storeAs(URL_IMAGE_MEMBER_THUMB, $nameThumb50); //Store Image Thumbnail 50x50
+            Image::make($thumbPath180)->resize(WIDTH_THUMB_180, HEIGHT_THUMB_180)->save($thumbPath180);
+            Image::make($thumbPath50)->resize(WIDTH_THUMB_50, HEIGHT_THUMB_50)->save($thumbPath50);
             $this->deleteOldAvatar($nameOldPicture); //Delete old Avatar
         } catch (\Exception $ex) {
             return false;
@@ -107,6 +124,7 @@ class MemberService extends BaseService implements MemberServiceInterface {
 
     private function deleteOldAvatar($picture) {
         Storage::delete(URL_IMAGE_MEMBER . $picture);
-        Storage::delete(URL_IMAGE_MEMBER_THUMB . THUMB_SIZE . "-" . $picture);
+        Storage::delete(URL_IMAGE_MEMBER_THUMB . THUMB_SIZE_180 . "-" . $picture);
+        Storage::delete(URL_IMAGE_MEMBER_THUMB . THUMB_SIZE_50 . "-" . $picture);
     }
 }

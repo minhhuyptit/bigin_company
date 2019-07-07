@@ -121,6 +121,14 @@ class Messages {
             'vi' => 'Cập nhật hồ sơ thành công',
             'en' => 'Update profile successfully',
         ),
+        GET_ALL_MEMBER_SUCCESS => array(
+            'vi' => 'Lấy danh sách thành viên thành công',
+            'en' => 'Get the member list successfully',
+        ),
+        GET_ALL_MEMBER_FAIL => array(
+            'vi' => 'Lấy danh sách thành viên thất bại',
+            'en' => 'Get the member list failded',
+        )
     );
 
     public static $config = array(
@@ -206,6 +214,14 @@ class Messages {
         LEADER_NOT_EXIST => array(
             'vi' => 'Trưởng nhóm không tồn tại. Vui lòng kiểm tra lại',
             'en' => 'Team leader does not exist. Please check again',
+        ),
+        GET_TEAM_SUCCESS => array(
+            'vi' => 'Lấy thông tin nhóm thành công',
+            'en' => 'Get information team successfully',
+        ),
+        GET_TEAM_FAIL => array(
+            'vi' => 'Lấy thông tin nhóm thất bại',
+            'en' => 'Get information team failded',
         ),
         CREATE_TEAM_SUCCESS => array(
             'vi' => 'Thêm nhóm thành công',

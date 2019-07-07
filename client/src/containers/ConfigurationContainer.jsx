@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Row, Col, Card, CardBody} from "reactstrap";
-import {Button, Segment} from "semantic-ui-react";
+import {Label, Button, Segment} from "semantic-ui-react";
 
 import MenuConfiguration from "./../components/Configuration/MenuConfiguration";
 import TableConfiguration from "./../components/Configuration/TableConfiguration";
@@ -84,24 +84,25 @@ class ConfigurationContainer extends Component {
     return (
       <Card style={{height: "80%"}}>
         <CardBody>
-        <Segment color="orange">
-          <Row>
-            <Col sm={3}>
-              <Button icon="add" content="Add" color="orange" onClick={this.handleAdd} />
-              <MenuConfiguration
-                menu={Object.keys(this.props.data)}
-                activeItem={activeItem}
-                onClickItemType={this.onClickItemType}
-              />
-            </Col>
-            <Col sm={9}>
-              <TableConfiguration
-                handleEdit={this.handleEdit}
-                handleDelete={this.handleDelete}
-                data={this.props.data[activeItem]}
-              />
-            </Col>
-          </Row>
+          <Label icon="wrench" color="orange" size="large" content="Configuration Management" />
+          <Segment color="orange">
+            <Row>
+              <Col sm={3}>
+                <Button icon="add" content="Add" color="blue" onClick={this.handleAdd} />
+                <MenuConfiguration
+                  menu={Object.keys(this.props.data)}
+                  activeItem={activeItem}
+                  onClickItemType={this.onClickItemType}
+                />
+              </Col>
+              <Col sm={9}>
+                <TableConfiguration
+                  handleEdit={this.handleEdit}
+                  handleDelete={this.handleDelete}
+                  data={this.props.data[activeItem]}
+                />
+              </Col>
+            </Row>
           </Segment>
           <AddEditConfigurationModal
             toggle={this.toggleModal}
@@ -131,7 +132,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch.config.asyncGetConfigByType(type);
   },
   addConfig: item => {
-    dispatch.config.asyncCreateConfig(item)
+    dispatch.config.asyncCreateConfig(item);
   },
   editConfig: item => {
     dispatch.config.asyncUpdateConfig(item);

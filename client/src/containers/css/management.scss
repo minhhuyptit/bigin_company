@@ -1,0 +1,58 @@
+.team-management-container{
+    .content-management-title{
+        font-weight: bolder;
+        color: #00acac;
+        margin-top: 5px;
+        margin-bottom: -5px;
+        margin-left: 20px;
+    }
+    .btn-add-team{
+        float: right;
+    }
+}
+.team-detail-container{
+    .add-member, .add-team{
+        float: right;
+    }
+    .update-team{
+        float: right;
+    }
+    .lb-title-team{
+        font-weight: bolder;
+        color: rgb(250, 79, 0);
+        font-size: 2em;
+        font-style: italic;
+        margin-top: 10px;
+    }
+    .lb-add-member{
+        font-size: 13px;
+        font-weight: bolder;
+        margin-left: 15px;
+    }
+    .list-team-member{
+        overflow-y: scroll;
+        height: 100%;
+        .member-title{
+            font-size: 0.9em;
+            font-weight: 600 !important;
+        }
+        .role-member{
+            font-size: 0.75em;
+            color: rgb(255, 85, 85);
+            font-style: italic;
+        }
+        .description{
+            font-size: 0.8em;
+            font-style: italic;
+        }
+        
+    }
+    .add-team-modal{
+        .add-form{
+            padding: 0px 5%;
+        }
+        .textarea-form{
+            height: 120px;
+        }
+    }
+}
