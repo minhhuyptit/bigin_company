@@ -40,15 +40,15 @@ class LoginContainer extends Component {
     }
   }
 
-  handleFacebook(){
+  handleFacebook() {
     alert("Comming soon!");
   }
 
-  handleGoogle(){
+  handleGoogle() {
     alert("Comming soon!");
   }
 
-  handleForgotPassword(){
+  handleForgotPassword() {
     alert("Comming soon!");
   }
 
@@ -62,7 +62,7 @@ class LoginContainer extends Component {
       });
 
       console.log(res);
-      
+
       if (res.status === 200) {
         this.props.login(res.data); //Save data to Redux LocalStorage
         this.props.history.push("/dashboard");
@@ -71,15 +71,15 @@ class LoginContainer extends Component {
           title: notify.TITLE_LOGIN_SUCCESS,
           content: res.message,
           timeout: 50
-      }
-      this.props.changeNotify(option);
+        };
+        this.props.changeNotify(option);
       } else {
         let option = {
-            style: notify.DANGER,
-            title: notify.TITLE_LOGIN_FAIL,
-            content: res.message,
-            timeout: 1500
-        }
+          style: notify.DANGER,
+          title: notify.TITLE_LOGIN_FAIL,
+          content: res.message,
+          timeout: 1500
+        };
         this.props.changeNotify(option);
         this.setState({isLoading: false});
       }
@@ -130,10 +130,24 @@ class LoginContainer extends Component {
                   <hr className="hr-text" data-content="Or" />
                   <Row>
                     <Col xs="12" sm="6">
-                      <Button size="small" id="btn-facebook" color="facebook" icon="facebook" content="Facebook" onClick={this.handleFacebook} />
+                      <Button
+                        size="small"
+                        id="btn-facebook"
+                        color="facebook"
+                        icon="facebook"
+                        content="Facebook"
+                        onClick={this.handleFacebook}
+                      />
                     </Col>
                     <Col xs="12" sm="6">
-                      <Button size="small" id="btn-google" color="google plus" icon="google plus" content="Google" onClick={this.handleGoogle} />
+                      <Button
+                        size="small"
+                        id="btn-google"
+                        color="google plus"
+                        icon="google plus"
+                        content="Google"
+                        onClick={this.handleGoogle}
+                      />
                     </Col>
                   </Row>
                 </Card.Content>
@@ -156,7 +170,7 @@ const mapDispatchToProps = dispatch => ({
   login: item => {
     dispatch.user.login(item);
   },
-  changeNotify: (option) => {
+  changeNotify: option => {
     dispatch.notify.changeNotification(option);
   }
 });

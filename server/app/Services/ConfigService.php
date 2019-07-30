@@ -12,7 +12,7 @@ class ConfigService extends BaseService implements ConfigServiceInterface {
     }
 
     // Overide
-    public function all() {
+    public function all($option = []) {
         $data = $this->repository->all();
         if ($data === false) {
             return $this->response(500, GET_CONFIG_FAIL);

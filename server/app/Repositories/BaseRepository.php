@@ -12,9 +12,9 @@ abstract class BaseRepository implements RepositoryInterface {
         $this->model = $model;
     }
 
-    public function all() {
+    public function all($option = []) {
         try {
-            return $this->model->all();
+            return $this->model->where($option)->get();
         } catch (\Exception $ex) {
             return false;
         }

@@ -10,7 +10,9 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-
+Route::get('zozo', function () {
+    return "Zo day";
+});
 Route::post('login', 'MemberController@login');
 Route::group(['middleware' => 'jwt.auth'], function () {
     Route::post('logout', 'MemberController@logout');

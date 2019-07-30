@@ -1,4 +1,4 @@
-export function listTeamMembers(list) {
+export function listTeamMembers(list = []) {
     let arrTeamMembers = [];
     list.map((item, index) => {
         arrTeamMembers.push({
@@ -11,7 +11,7 @@ export function listTeamMembers(list) {
     return arrTeamMembers
 }
 
-export function listRoleMembers(list) {
+export function listRoleMembers(list = []) {
     let arrRoleMembers = [];
     list.map((item, index) => {
         arrRoleMembers.push({
@@ -23,7 +23,7 @@ export function listRoleMembers(list) {
     return arrRoleMembers
 }
 
-export function listMemberNotInTeam(allMembers, teamMembers) {
+export function listMemberNotInTeam(allMembers = [], teamMembers = []) {
     let listMemberNotInTeam = allMembers.filter(function (elm_1) {
         return teamMembers.filter(function (elm_2) {
             return elm_1.id == elm_2.id
@@ -40,4 +40,17 @@ export function listMemberNotInTeam(allMembers, teamMembers) {
         });
     });
     return arrMemberNotInTeam
+}
+
+export function listAllMember(list = []) {
+    let arrMembers = [];
+    list.map((item, index) => {
+        arrMembers.push({
+            key: index,
+            text: item.fullname,
+            image: process.env.REACT_APP_THUMB_SIZE_50 + "-" + item.picture,
+            value: item.id
+        });
+    });
+    return arrMembers
 }

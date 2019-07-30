@@ -4,7 +4,7 @@ namespace App\Services\Contracts;
 
 interface ServiceInterface
 {
-    public function all();
+    public function all($otpion = []);
 
     public function find($id);
 

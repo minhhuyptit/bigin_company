@@ -14,8 +14,8 @@ class TeamService extends BaseService implements TeamServiceInterface {
     }
 
     // Overide
-    public function all() {
-        $data = parent::all();
+    public function all($option = []) {
+        $data = parent::all($option);
         if ($data === false) {
             return $this->response(500, GET_ALL_TEAM_FAIL);
         }

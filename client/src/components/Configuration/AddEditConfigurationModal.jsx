@@ -98,7 +98,7 @@ class AddEditConfigurationModal extends Component {
     return (
       <Modal style={{marginTop: "15vh"}} toggle={toggle} isOpen={showForm} className="modal-md">
           <ModalHeader className="color-teal">
-            <Label color='orange' ribbon>
+            <Label size="large" color='orange' ribbon>
               {itemSelected != null ? "Edit " : "Add "}Configuration
             </Label>
           </ModalHeader>

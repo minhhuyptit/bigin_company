@@ -6,10 +6,10 @@ class ListTeamMember extends Component {
     super(props);
   }
 
-  openConfirm(id) {
+  openConfirm(team_member_id) {
     var result = window.confirm("Are you sure you want to delete this ?");
     if (result === true) {
-      this.props.handleDelete(id);
+      this.props.handleDelete(team_member_id);
     }
   }
 
@@ -19,7 +19,7 @@ class ListTeamMember extends Component {
       return (
         <List.Item key={index}>
           <List.Content verticalAlign="middle" floated="right">
-            <Button size="tiny" circular color="red" icon="delete" onClick={() => this.openConfirm(item.id)} />
+            <Button size="tiny" circular color="red" icon="delete" onClick={() => this.openConfirm(item.team_member_id)} />
           </List.Content>
           <Image size="mini" avatar src={imagePath + item.picture} />
           <List.Content>

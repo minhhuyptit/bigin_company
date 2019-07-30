@@ -16,54 +16,55 @@ class TeamManagementContainer extends Component {
       team_id: parseInt(this.props.match.params.id),
       newMember: {
         member_id: "",
-        member_role_id: ""
+        team_member_role: ""
       }
     };
-    // this.handleDelete = this.handleDelete.bind(this)
-    // this.handeUpdate = this.handeUpdate.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
-    // this.handleAdd = this.handleAdd.bind(this)
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handeUpdate = this.handeUpdate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
 
   componentWillMount() {
     let {team_id} = this.state;
-    this.props.getInfoTeam(team_id);
-    this.props.getTeamMembersList(team_id);
     this.props.getAllMember();
+    this.props.getTeamMembersList(team_id);
     this.props.getMemberRole("team_member_role");
+    this.props.getInfoTeam(team_id);
   }
 
-  // handleDelete(member_id) {
-  //     let team_id = parseInt(this.props.match.params.id)
-  //     let item = {
-  //         team_id, member_id
-  //     }
-  //     this.props.deleteMemberFromTeam(item)
-  // }
+  handleDelete(team_member_id) {
+    let item = {team_member_id, team_id: this.state.team_id};
+    this.props.deleteMemberFromTeam(item);
+  }
 
-  // handeUpdate() {
-  //     let team_id = parseInt(this.props.match.params.id)
-  //     let { name, pic, description } = this.editTeamForm.state.form
-  //     let item = {
-  //         team_id, name, pic, description
-  //     }
-  //     this.props.updateInfoTeam(item)
-  // }
+  handeUpdate() {
+    let {name, leader, description} = this.editTeamForm.state.form;
+    let item = {
+      id: this.state.team_id,
+      name,
+      leader,
+      description
+    };
+    this.props.updateInfoTeam(item);
+  }
 
-  // handleAdd() {
-  //     let team_id = parseInt(this.props.match.params.id)
-  //     let { member_id, member_role_id } = this.state.newMember
-  //     let item = {
-  //         team_id, member_id, member_role_id
-  //     }
-  //     this.props.addMemberIntoTeam(item)
-  //     this.setState({
-  //         newMember: {
-  //             member_id: '',
-  //             member_role_id: ''
-  //         }
-  //     })
-  // }
+  handleAdd() {
+    let team_id = parseInt(this.props.match.params.id);
+    let {member_id, team_member_role} = this.state.newMember;
+    let item = {
+      team_id,
+      member_id,
+      team_member_role
+    };
+    this.props.addMemberIntoTeam(item);
+    this.setState({
+      newMember: {
+        member_id: "",
+        team_member_role: ""
+      }
+    });
+  }
 
   handleChange(value, key) {
     let {newMember} = this.state;
@@ -72,7 +73,7 @@ class TeamManagementContainer extends Component {
   }
 
   render() {
-    let {member_id, member_role_id} = this.state.newMember;
+    let {member_id, team_member_role} = this.state.newMember;
     let {infoTeam, teamMembersList, teamMemberRole, allMember} = this.props;
     let arrTeamMembers = listTeamMembers(teamMembersList);
     let arrRoleMembers = listRoleMembers(teamMemberRole);
@@ -80,11 +81,6 @@ class TeamManagementContainer extends Component {
 
     return (
       <Card className="team-detail-container">
-        {/* <CardHeader>
-          <Label basic size="large" pointing="right" color="orange">
-            Team {infoTeam.name}
-          </Label>
-        </CardHeader> */}
         <CardBody>
           <Row>
             <Col sm={4}>
@@ -130,9 +126,9 @@ class TeamManagementContainer extends Component {
                     selection
                     search
                     onChange={(e, {value}) => {
-                      this.handleChange(value, "member_role_id");
+                      this.handleChange(value, "team_member_role");
                     }}
-                    value={member_role_id}
+                    value={team_member_role}
                     options={arrRoleMembers}
                   />
                 </Col>
@@ -162,14 +158,23 @@ const mapDispatchToProps = dispatch => ({
   getTeamMembersList: team_id => {
     dispatch.team.asynGetTeamMembersList(team_id);
   },
-  getInfoTeam: team_id => {
-    dispatch.team.asynGetInfoTeam(team_id);
+  getInfoTeam: id => {
+    dispatch.team.asynGetInfoTeam(id);
   },
   getAllMember: () => {
     dispatch.member.asyncGetAllMember();
   },
   getMemberRole: type => {
     dispatch.config.asyncGetConfigByType(type);
+  },
+  updateInfoTeam: item => {
+    dispatch.team.asyncUpdateTeam(item);
+  },
+  addMemberIntoTeam: item => {
+    dispatch.team.asyncAddMemberIntoTeam(item);
+  },
+  deleteMemberFromTeam: item => {
+    dispatch.team.asyncDeleteMemberFromTeam(item);
   }
 });
 

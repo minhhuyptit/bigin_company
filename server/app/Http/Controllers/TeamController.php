@@ -13,7 +13,8 @@ class TeamController extends Controller {
     }
 
     public function index() {
-        return $this->service->all();
+        $option = ['del_flag' => 0];
+        return $this->service->all($option);
     }
 
     public function store(TeamRequest $request) {

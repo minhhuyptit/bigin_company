@@ -28,7 +28,10 @@ class TeamRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameters()['team'];
+        $id = 0; //Ignore id = 0 when create Team
+        if($this->getMethod() === "PUT"){
+            $id = $this->route()->parameters()['team'];
+        }
         return [
             'name'          => 'bail|required|unique:teams,name,'.$id,
             'leader'        => 'bail|required|exists:members,id',

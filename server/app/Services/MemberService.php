@@ -22,7 +22,7 @@ class MemberService extends BaseService implements MemberServiceInterface {
     }
 
     // Overide
-    public function all() {
+    public function all($option = []) {
         $data = parent::all();
         if ($data === false) {
             return $this->response(500, GET_ALL_MEMBER_SUCCESS);

@@ -20,7 +20,7 @@ class TeamMember extends Model
         return $this->belongsTo(Member::class, 'member_id', 'id')
             ->where('del_flag', false);
     }
-    
+
     public function member_role()
     {
         return $this->belongsTo(Configuration::class, 'team_member_role', 'id')

@@ -14,8 +14,8 @@ abstract class BaseService implements ServiceInterface {
         $this->repository = $repository;
     }
 
-    public function all() {
-        return $this->repository->all();
+    public function all($otpion = []) {
+        return $this->repository->all($otpion);
     }
 
     public function find($id) {
