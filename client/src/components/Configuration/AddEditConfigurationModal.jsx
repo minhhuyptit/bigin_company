@@ -62,7 +62,7 @@ class AddEditConfigurationModal extends Component {
     }
     //Case Edit
     let {id, type, value, description} = itemSelected;
-    return itemSelected.id != prevState.form.id ? {form: {id, type, value, description}} : null;
+    return itemSelected.id !== prevState.form.id ? {form: {id, type, value, description}} : null;
   }
 
   render() {

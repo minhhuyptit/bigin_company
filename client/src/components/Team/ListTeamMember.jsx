@@ -1,11 +1,7 @@
 import React, {Component} from "react";
-import {Button, Image, List, ItemHeader} from "semantic-ui-react";
+import {Button, Image, List} from "semantic-ui-react";
 
 class ListTeamMember extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   openConfirm(team_member_id) {
     var result = window.confirm("Are you sure you want to delete this ?");
     if (result === true) {

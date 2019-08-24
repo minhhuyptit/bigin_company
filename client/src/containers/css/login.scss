@@ -11,7 +11,7 @@
 
 .form-login {
   position: relative;
-  top: 15vh;
+  top: 5vh;
   opacity: 0.5;
   transition: linear 0.8s;
 
@@ -19,6 +19,12 @@
     width: 40%;
     display: block;
     margin: 0px auto 0px;
+  }
+
+  #logo-register {
+    width: 30%;
+    display: block;
+    margin: 0px auto 10px;
   }
 
   .forgot-password {
@@ -38,11 +44,13 @@
   }
 
   .hr-text {
+    margin: 10px;
     line-height: 1em;
     position: relative;
     outline: 0;
     border: 0;
     color: black;
+    font-size: 0.8em;
     text-align: center;
     height: 1.5em;
     opacity: 0.6;
@@ -65,7 +73,7 @@
       background-color: white;
     }
   }
-
+ 
   #btn-facebook {
     width: 100%;
     background-color: #3b5998;
@@ -84,8 +92,17 @@
   #btn-google:hover {
     opacity: 1;
   }
+
+  #btn-register {
+    margin-top: 4%;
+  }
 }
 
 .form-login:hover {
   opacity: 1;
+}
+
+.title-forgot-password{
+  font-size: 0.9em;
+  color: gray;
 }

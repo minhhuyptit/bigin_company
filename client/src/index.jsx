@@ -11,6 +11,7 @@ import * as models from "./models/rootModel";
 import App from "./App";
 import history from "./helpers/history";
 import LoginContainer from "./containers/LoginContainer";
+import RegisterContainer from "./containers/RegisterContainer";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
 import Notification from "./components/Common/Notification";
   
@@ -19,6 +20,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "@coreui/icons/css/coreui-icons.min.css";
 import "@coreui/coreui/scss/coreui.scss";
+import ForgotPasswordContainer from "./containers/ForgotPasswordContainer";
 require('dotenv').config();
 
 const persistPlugin = createPersistPlugin({
@@ -36,7 +38,9 @@ ReactDOM.render(
       <Router history={history}>
         <Notification />
         <Switch>
+          <Route exact path="/register" component={RegisterContainer} />
           <Route exact path="/login" component={LoginContainer} />
+          <Route exact path="/password/reset" component={ForgotPasswordContainer} />
           <ProtectedRoute path="*" authed='isLogin' component={App} />
         </Switch>
       </Router>

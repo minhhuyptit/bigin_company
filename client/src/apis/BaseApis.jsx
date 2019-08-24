@@ -2,9 +2,9 @@ import BaseRequest from "./BaseRequest";
 import {forceLogout} from "./../helpers/token";
 
 export default class BaseApi extends BaseRequest {
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   async invoke(method, url, body = null) {
     let res = await super[method](url, body);

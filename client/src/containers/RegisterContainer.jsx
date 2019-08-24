@@ -2,13 +2,13 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {withRouter, Link} from "react-router-dom";
 import {Container, Row, Col} from "reactstrap";
-import {Form, Button, Card, Input, Segment, Loader} from "semantic-ui-react";
+import {Form, Button, Card, Segment, Loader} from "semantic-ui-react";
 
 import AuthenticationApi from "./../apis/AuthenticationApis";
 import * as notify from "./../constants/Notify";
 import "./css/login.scss";
 
-class LoginContainer extends Component {
+class RegisterContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -18,11 +18,12 @@ class LoginContainer extends Component {
       password: ""
     };
 
+    this.handleBackLogin = this.handleBackLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFacebook = this.handleFacebook.bind(this);
     this.handleGoogle = this.handleGoogle.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
+    this.handleForgotPassword = this.handleForgotPassword.bind(this);
   }
 
   handleChange(event) {
@@ -48,8 +49,12 @@ class LoginContainer extends Component {
     alert("Comming soon!");
   }
 
-  handleRegister() {
-    this.props.history.push("/register");
+  handleForgotPassword() {
+    alert("Comming soon!");
+  }
+
+  handleBackLogin() {
+    this.props.history.push("/login");
   }
 
   async handleSubmit(event) {
@@ -94,72 +99,55 @@ class LoginContainer extends Component {
           <source src="/video/background-login.mp4" type="video/mp4" />
         </video>
         <Row className="justify-content-center">
-          <Col lg="4" md="6" sm="8" xs="10" className="form-login">
+          <Col lg="5" md="10" sm="8" xs="10" className="form-login">
             <Segment color="orange">
               <Card fluid>
                 <Card.Content>
                   <Loader size="massive" active={isLoading} />
-                  <Link to="">
+                  <Link to="/">
                     <img id="logo" src="/images/bigin-logo.png" alt="logo" />
                   </Link>
                   <Form>
-                    <Form.Field
-                      label="Email"
-                      name="email"
-                      control={Input}
-                      type="mail"
-                      placeholder="Your email"
-                      required
-                      value={email}
-                      onChange={this.handleChange}
-                    />
-                    <Form.Field
-                      label="Password"
-                      name="password"
-                      control={Input}
+                    <Form.Input icon="user" required iconPosition="left" placeholder="Full name" />
+                    <Form.Group>
+                      <Form.Input
+                        icon="calendar"
+                        type="date"
+                        iconPosition="left"
+                        placeholder="Day of birth"
+                        width={10}
+                      />
+                      <Button.Group>
+                        <Button size="small" content="Male" />
+                        <Button.Or />
+                        <Button size="small" content="Female" />
+                      </Button.Group>
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Input icon="mail" type="email" iconPosition="left" placeholder="Email" width={9} />
+                      <Form.Input icon="phone" iconPosition="left" placeholder="Phone" width={7} />
+                    </Form.Group>
+                    <Form.Input icon="lock" type="password" required iconPosition="left" placeholder="Password" />
+                    <Form.Input
+                      icon="lock"
                       type="password"
-                      placeholder="Your password"
                       required
-                      value={password}
-                      onChange={this.handleChange}
+                      iconPosition="left"
+                      placeholder="Confirm Password"
                     />
-                    <Link className="forgot-password" to="/password/reset">
-                      Forgot password?
-                    </Link>
-                    <Button circular fluid color="blue" type="submit" content="Login" onClick={this.handleSubmit} />
+                    <Form.Checkbox label="I agree to the Terms and Conditions" />
+                    <Button circular fluid color="green" type="submit" content="Register" onClick={this.handleSubmit} />
                   </Form>
-                  <hr className="hr-text" data-content="Or" />
-                  <Row>
-                    <Col xs="12" sm="6">
-                      <Button
-                        size="small"
-                        id="btn-facebook"
-                        color="facebook"
-                        icon="facebook"
-                        content="Facebook"
-                        onClick={this.handleFacebook}
-                      />
-                    </Col>
-                    <Col xs="12" sm="6">
-                      <Button
-                        size="small"
-                        id="btn-google"
-                        color="google plus"
-                        icon="google plus"
-                        content="Google"
-                        onClick={this.handleGoogle}
-                      />
-                    </Col>
-                  </Row>
-                  <hr className="hr-text" data-content="Don't have an account?" />
+                  <hr className="hr-text" data-content="Return to login" />
                   <Button
-                    onClick={this.handleRegister}
+                    onClick={this.handleBackLogin}
                     circular
-                    color="green"
+                    color="blue"
                     fluid
-                    labelPosition="right"
-                    icon="right arrow"
-                    content="Sign up"
+                    icon
+                    labelPosition="left"
+                    icon="left arrow"
+                    content="Sign in"
                   />
                 </Card.Content>
               </Card>
@@ -190,5 +178,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(LoginContainer)
+  )(RegisterContainer)
 );

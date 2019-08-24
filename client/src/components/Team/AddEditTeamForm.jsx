@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, TextArea, Dropdown, Button} from 'semantic-ui-react';
+import { Form, Input, TextArea, Dropdown} from 'semantic-ui-react';
 
 class AddEditTeamForm extends Component {
     constructor(props) {
