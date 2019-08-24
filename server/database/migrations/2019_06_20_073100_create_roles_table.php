@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConfigurationsTable extends Migration
+class CreateRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateConfigurationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('configurations', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
-            $table->string('value', 100);
-            $table->string('description')->nullable()->default('');
-            $table->string('type', 25);
+            $table->string('name', 100)->unique();
+            $table->string('description', 400)->nullable()->default('');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('modified_by')->unsigned()->nullable();
             $table->timestamps();
@@ -32,6 +31,6 @@ class CreateConfigurationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('configurations');
+        Schema::dropIfExists('roles');
     }
 }

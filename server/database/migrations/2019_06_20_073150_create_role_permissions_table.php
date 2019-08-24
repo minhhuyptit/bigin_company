@@ -17,9 +17,8 @@ class CreateRolePermissionsTable extends Migration
             $table->increments('id');
             $table->integer('role_id')->unsigned();
             $table->integer('permission_id')->unsigned();
-            $table->timestamps();
-            $table->foreign('role_id')->references('id')->on('configurations')->onUpdate('cascade');
-            $table->foreign('permission_id')->references('id')->on('configurations')->onUpdate('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade');
+            $table->foreign('permission_id')->references('id')->on('permissions')->onUpdate('cascade');
         });
     }
 

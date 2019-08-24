@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTeamMembersTable extends Migration
+class CreateInterviewersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateTeamMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_members', function (Blueprint $table) {
+        Schema::create('interviewers', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean('del_flag')->default(false);
+            $table->integer('interview_id')->unsigned();
             $table->integer('member_id')->unsigned();
-            $table->integer('team_id')->unsigned();
-            $table->integer('team_member_role')->unsigned();
+            $table->float('evaluation')->unsigned()->nullable()->default(0);
+            $table->foreign('interview_id')->references('id')->on('interviews')->onUpdate('cascade');
             $table->foreign('member_id')->references('id')->on('members')->onUpdate('cascade');
-            $table->foreign('team_id')->references('id')->on('teams')->onUpdate('cascade');
-            $table->foreign('team_member_role')->references('id')->on('team_member_roles')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateTeamMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('team_members');
+        Schema::dropIfExists('interviewers');
     }
 }

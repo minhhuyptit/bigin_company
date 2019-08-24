@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEventsTable extends Migration
+class CreateInterviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('interviews', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
-            $table->string('name', 100);
-            $table->integer('repeat_type')->unsigned();
-            $table->string('repeat_on_day', 10);
             $table->boolean('status')->default(true);
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->string('description', 400)->nullable()->default('');
+            $table->float('evaluation')->unsigned()->nullable()->default(0);
+            $table->integer('candidate_id')->unsigned();
+            $table->integer('position_id')->unsigned();
+            $table->dateTime('date');
+            $table->string('note')->nullable()->default('');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('modified_by')->unsigned()->nullable();
-            $table->foreign('repeat_type')->references('id')->on('configurations')->onUpdate('cascade');
+            $table->foreign('candidate_id')->references('id')->on('candidates')->onUpdate('cascade');
+            $table->foreign('position_id')->references('id')->on('configurations')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('interviews');
     }
 }

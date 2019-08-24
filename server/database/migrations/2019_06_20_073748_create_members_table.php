@@ -16,7 +16,7 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('del_flag')->default(false);
-            $table->string('email',100)->unique(); 
+            $table->string('email',100)->unique();
             $table->string('password');
             $table->string('fullname');
             $table->boolean('is_male');
@@ -26,8 +26,8 @@ class CreateMembersTable extends Migration
             $table->integer('role')->unsigned();
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('modified_by')->unsigned()->nullable();
+            $table->foreign('role')->references('id')->on('roles')->onUpdate('cascade');
             $table->timestamps();
-            $table->foreign('role')->references('id')->on('configurations')->onUpdate('cascade');
         });
     }
 

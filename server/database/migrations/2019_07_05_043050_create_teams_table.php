@@ -18,7 +18,7 @@ class CreateTeamsTable extends Migration
             $table->boolean('del_flag')->default(false);
             $table->string('name', 100)->unique();
             $table->integer('leader')->unsigned();
-            $table->string('description')->nullable()->default('');
+            $table->string('description', 400)->nullable()->default('');
             $table->integer('created_by')->unsigned()->nullable();
             $table->integer('modified_by')->unsigned()->nullable();
             $table->foreign('leader')->references('id')->on('members')->onUpdate('cascade');
