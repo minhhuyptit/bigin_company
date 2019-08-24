@@ -34,5 +34,5 @@ class MemberRepository extends BaseRepository implements MemberRepositoryInterfa
         }
     }
 
-    
+
 }

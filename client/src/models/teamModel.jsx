@@ -1,6 +1,7 @@
 import TeamApi from "./../apis/TeamApis";
+import * as notify from "./../constants/Notify";
+import {store} from "./../index";
 const teamApi = new TeamApi();
-
 export const team = {
   state: {
     teamList: [],
@@ -82,6 +83,9 @@ export const team = {
 
       if (data.status === 200) {
         this.updateInfoTeam(data.data);
+        Notification(notify.SUCCESS, notify.TITLE_UPDATE_SUCCESS, data.message, 1500);
+      }else {
+        Notification(notify.DANGER, notify.TITLE_UPDATE_FAIL, data.message, 2500);
       }
     },
 
@@ -91,6 +95,9 @@ export const team = {
       });
       if (data.status === 200) {
         this.asyncGetAllTeam();
+        Notification(notify.SUCCESS, notify.TITLE_UPDATE_SUCCESS, data.message, 1500);
+      }else {
+        Notification(notify.DANGER, notify.TITLE_UPDATE_FAIL, data.message, 2500);
       }
     },
 
@@ -104,6 +111,9 @@ export const team = {
       });
       if (data.status === 200) {
         this.asynGetTeamMembersList(item["team_id"]);
+        Notification(notify.SUCCESS, notify.TITLE_CREATE_SUCCESS, data.message, 1500);
+      }else {
+        Notification(notify.DANGER, notify.TITLE_CREATE_FAIL, data.message, 2500);
       }
     },
     async asyncDeleteMemberFromTeam(item) {
@@ -114,7 +124,14 @@ export const team = {
       });
       if (data.status === 200) {
         this.asynGetTeamMembersList(item["team_id"]);
+        Notification(notify.SUCCESS, notify.TITLE_DELETE_SUCCESS, data.message, 1500);
+      } else {
+        Notification(notify.DANGER, notify.TITLE_DELETE_FAIL, data.message, 2500);
       }
     }
   }
 };
+function Notification(style, title, content, timeout) {
+  let option = {style, title, content, timeout};
+  store.dispatch.notify.changeNotification(option);
+}
