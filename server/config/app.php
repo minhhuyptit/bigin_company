@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'vi',
 
     /*
     |--------------------------------------------------------------------------
@@ -176,6 +176,13 @@ return [
         App\Providers\RouteServiceProvider::class,
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        BenSampo\Enum\EnumServiceProvider::class,
+
+        /*
+         * My Service Providers...
+         */
+
+        App\Providers\MemberServiceProvider::class,
     ],
 
     /*

@@ -26,8 +26,8 @@ export function listRoleMembers(list = []) {
 export function listMemberNotInTeam(allMembers = [], teamMembers = []) {
     let listMemberNotInTeam = allMembers.filter(function (elm_1) {
         return teamMembers.filter(function (elm_2) {
-            return elm_1.id == elm_2.id
-        }).length == 0
+            return elm_1.id === elm_2.id
+        }).length === 0
     })
 
     let arrMemberNotInTeam = [];

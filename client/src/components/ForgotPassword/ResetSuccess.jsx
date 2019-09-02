@@ -2,7 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {withRouter, Link} from "react-router-dom";
 import {Container, Row, Col} from "reactstrap";
-import {Form, Button, Card, Step, Segment, Icon, Label} from "semantic-ui-react";
+import {Form, Button, Card, Segment, Icon} from "semantic-ui-react";
+import $ from "jquery";
 
 class ResetSuccess extends Component {
   constructor(props) {

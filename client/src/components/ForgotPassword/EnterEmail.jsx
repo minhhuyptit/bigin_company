@@ -2,22 +2,46 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {withRouter, Link} from "react-router-dom";
 import {Container, Row, Col} from "reactstrap";
-import {Form, Button, Card, Icon, Segment, Input, Transition, Label} from "semantic-ui-react";
+import {Form, Button, Card, Icon, Segment, Input, Label} from "semantic-ui-react";
+import $ from "jquery";
 
 class EnterEmail extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      email: ""
+    };
+
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount(){
+    $('input[type=mail]').first().keypress(function (e){
+      var code = e.keyCode || e.which;
+      if (code === 13){
+        e.preventDefault();
+        $('button.btn-next').click();
+      }
+    });
   }
 
   handleNext() {
-    this.props.handleStep(2);
+    if(this.state.email){
+      this.props.handleStep(2);
+    }
   }
 
   handleBack() {
     this.props.history.push("/login");
+  }
+
+  handleChange(event) {
+    this.setState({
+      email: event.target.value
+    })
   }
 
   render() {
@@ -41,18 +65,22 @@ class EnterEmail extends Component {
                     </Label>
                     <Row>
                       <Col>
-                        <span className="title-forgot-password">Enter your email address and we will send you a code to reset your password.</span>
+                        <span className="title-forgot-password">
+                          Enter your email address and we will send you a code to reset your password.
+                        </span>
                         <Form.Field
                           label="Email"
-                          name="email"
                           control={Input}
                           type="mail"
                           placeholder="Enter your email address"
                           required
+                          value={this.state.email}
+                          onChange={this.handleChange}
+                          tabIndex={1}
                         />
                         <Row>
                           <Col sm="6">
-                            <Button fluid size="medium" content="Cancel" onClick={this.handleBack} />
+                            <Button fluid size="medium" content="Cancel" onClick={this.handleBack} tabIndex={3}/>
                           </Col>
                           <Col sm="6">
                             <Button
@@ -62,7 +90,9 @@ class EnterEmail extends Component {
                               icon="right arrow"
                               labelPosition="right"
                               content="Next"
+                              className="btn-next"
                               onClick={this.handleNext}
+                              tabIndex={2}
                             />
                           </Col>
                         </Row>

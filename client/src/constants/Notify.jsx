@@ -17,3 +17,7 @@ export const TITLE_CREATE_SUCCESS = "Create Success";
 export const TITLE_DELETE_FAIL = "Delete Fail";
 export const TITLE_DELETE_SUCCESS = "Delete Success";
 export const TITLE_SESSION_END = "Session End";
+export const TITLE_REGISTER_FAIL = "Register Fail";
+export const TITLE_REGISTER_SUCCESS = "Register Success";
+export const TITLE_RESEND_SUCCESS = "Resend Confirm Success";
+export const TITLE_RESEND_FAIL    = "Resend Confirm Fail";

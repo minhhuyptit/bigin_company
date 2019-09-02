@@ -10,8 +10,11 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
  */
-Route::get('zozo', function () {
-    return "Zo day";
+
+Route::group(['prefix' => 'register'], function () {
+    Route::post('/', 'MemberController@register')->name('register.create');
+    Route::get('confirm/{email}', 'MemberController@confirm')->name('register.confirm');
+    Route::get('confirm/resend/{email}', 'MemberController@resendConfirmation')->name('register.resend_confirm');
 });
 Route::post('login', 'MemberController@login');
 Route::group(['middleware' => 'jwt.auth'], function () {

@@ -2,11 +2,17 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {withRouter, Link} from "react-router-dom";
 import {Container, Row, Col} from "reactstrap";
-import {Form, Button, Card, Input, Segment, Loader} from "semantic-ui-react";
+import {Form, Button, Card, Input, Segment, Loader, Transition} from "semantic-ui-react";
+import $ from "jquery";
 
 import AuthenticationApi from "./../apis/AuthenticationApis";
 import * as notify from "./../constants/Notify";
 import "./css/login.scss";
+import FacebookLoginButton from "../components/Common/FacebookLoginButton";
+import GoogleLoginButton from "../components/Common/GoogleLoginButton";
+import MicrosoftLoginButton from "../components/Common/MicrosoftLoginButton";
+import GitHubLoginButton from "../components/Common/GitHubLoginButton";
+import {ReactCSSTransitionGroup} from "react-addons-css-transition-group";
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -20,8 +26,6 @@ class LoginContainer extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFacebook = this.handleFacebook.bind(this);
-    this.handleGoogle = this.handleGoogle.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
   }
 
@@ -40,12 +44,14 @@ class LoginContainer extends Component {
     }
   }
 
-  handleFacebook() {
-    alert("Comming soon!");
-  }
-
-  handleGoogle() {
-    alert("Comming soon!");
+  componentDidMount() {
+    $("#btn-github-origin, #btn-microsoft-origin").hide();
+    $("#btn-microsoft").click(function() {
+      $("#btn-microsoft-origin");
+    });
+    $("#btn-github").click(function() {
+      $("#btn-github-origin button").click();
+    });
   }
 
   handleRegister() {
@@ -53,6 +59,7 @@ class LoginContainer extends Component {
   }
 
   async handleSubmit(event) {
+    event.preventDefault();
     let {email, password} = this.state;
     if (email !== "" && password !== "") {
       this.setState({isLoading: true});
@@ -60,8 +67,6 @@ class LoginContainer extends Component {
       let res = await authenApi.call("login", {
         body: {email, password}
       });
-
-      console.log(res);
 
       if (res.status === 200) {
         this.props.login(res.data); //Save data to Redux LocalStorage
@@ -89,84 +94,84 @@ class LoginContainer extends Component {
   render() {
     let {isLoading, email, password} = this.state;
     return (
-      <Container>
-        <video autoPlay muted loop id="video_background">
-          <source src="/video/background-login.mp4" type="video/mp4" />
-        </video>
-        <Row className="justify-content-center">
-          <Col lg="4" md="6" sm="8" xs="10" className="form-login">
-            <Segment color="orange">
-              <Card fluid>
-                <Card.Content>
-                  <Loader size="massive" active={isLoading} />
-                  <Link to="">
-                    <img id="logo" src="/images/bigin-logo.png" alt="logo" />
-                  </Link>
-                  <Form>
-                    <Form.Field
-                      label="Email"
-                      name="email"
-                      control={Input}
-                      type="mail"
-                      placeholder="Your email"
-                      required
-                      value={email}
-                      onChange={this.handleChange}
-                    />
-                    <Form.Field
-                      label="Password"
-                      name="password"
-                      control={Input}
-                      type="password"
-                      placeholder="Your password"
-                      required
-                      value={password}
-                      onChange={this.handleChange}
-                    />
-                    <Link className="forgot-password" to="/password/reset">
-                      Forgot password?
+      <Transition visible={true} animation="scale" duration={4000}>
+        <Container>
+          <video autoPlay muted loop id="video_background">
+            <source src="/video/background-login.mp4" type="video/mp4" />
+          </video>
+          <Row className="justify-content-center">
+            <Col lg="4" md="6" sm="8" xs="10" className="form-login">
+              <Segment color="orange">
+                <Card fluid>
+                  <Card.Content>
+                    <Loader size="massive" active={isLoading} />
+                    <Link to="">
+                      <img id="logo" src="/images/bigin-logo.png" alt="logo" />
                     </Link>
-                    <Button circular fluid color="blue" type="submit" content="Login" onClick={this.handleSubmit} />
-                  </Form>
-                  <hr className="hr-text" data-content="Or" />
-                  <Row>
-                    <Col xs="12" sm="6">
-                      <Button
-                        size="small"
-                        id="btn-facebook"
-                        color="facebook"
-                        icon="facebook"
-                        content="Facebook"
-                        onClick={this.handleFacebook}
+                    <Form onSubmit={this.handleSubmit}>
+                      <Form.Field
+                        label="Email"
+                        name="email"
+                        control={Input}
+                        type="mail"
+                        placeholder="Your email"
+                        required
+                        value={email}
+                        onChange={this.handleChange}
                       />
-                    </Col>
-                    <Col xs="12" sm="6">
-                      <Button
-                        size="small"
-                        id="btn-google"
-                        color="google plus"
-                        icon="google plus"
-                        content="Google"
-                        onClick={this.handleGoogle}
+                      <Form.Field
+                        label="Password"
+                        name="password"
+                        control={Input}
+                        type="password"
+                        placeholder="Your password"
+                        required
+                        value={password}
+                        onChange={this.handleChange}
                       />
-                    </Col>
-                  </Row>
-                  <hr className="hr-text" data-content="Don't have an account?" />
-                  <Button
-                    onClick={this.handleRegister}
-                    circular
-                    color="green"
-                    fluid
-                    labelPosition="right"
-                    icon="right arrow"
-                    content="Sign up"
-                  />
-                </Card.Content>
-              </Card>
-            </Segment>
-          </Col>
-        </Row>
-      </Container>
+                      <Link className="forgot-password" to="/password/reset">
+                        Forgot password?
+                      </Link>
+                      <Button circular fluid color="blue" content="Login" />
+                    </Form>
+                    <hr className="hr-text" data-content="Or" />
+                    <Row>
+                      <Col xs="12" sm="3">
+                        <FacebookLoginButton />
+                      </Col>
+                      <Col xs="12" sm="3">
+                        <GoogleLoginButton />
+                      </Col>
+                      <Col xs="12" sm="3">
+                        <Button size="large" id="btn-microsoft" circular icon="microsoft" />
+                        <span id="btn-microsoft-origin">
+                          <MicrosoftLoginButton id="btn-microsoft-origin" />
+                        </span>
+                      </Col>
+                      <Col xs="12" sm="3">
+                        <Button size="large" id="btn-github" circular icon="github" />
+                        <span id="btn-github-origin">
+                          <GitHubLoginButton />
+                        </span>
+                      </Col>
+                    </Row>
+                    <hr className="hr-text" data-content="Don't have an account?" />
+                    <Button
+                      onClick={this.handleRegister}
+                      circular
+                      color="green"
+                      fluid
+                      labelPosition="right"
+                      icon="right arrow"
+                      content="Sign up"
+                    />
+                  </Card.Content>
+                </Card>
+              </Segment>
+            </Col>
+          </Row>
+        </Container>
+      </Transition>
     );
   }
 }

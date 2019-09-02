@@ -14,6 +14,30 @@ export default class AuthenticationApi extends BaseApi{
                     }
                 }
             },
+            register: {
+                url: 'register',
+                method: 'post',
+                payload: {
+                    body: {
+                        fullname: '',
+                        email: '',
+                        birthday: '',
+                        is_male: '',
+                        phone: '',
+                        password: '',
+                        password_confirmation: ''
+                    }
+                }
+            },
+            resendConfirm: {
+                url: 'register/confirm/resend/{email}',
+                method: 'get',
+                payload: {
+                    url: {
+                        email: ""
+                    }
+                  }
+            },
             updateProfile: {
                 url: 'member/update-profile/{id}',
                 method: 'post',

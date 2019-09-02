@@ -20,8 +20,8 @@ export default class BaseRequest {
       };
     } catch (error) {
       return {
-        status: error.response.status,
-        message: error.response.data.message
+        status: 500,
+        message: error.message
       };
     }
   }
@@ -39,8 +39,8 @@ export default class BaseRequest {
       };
     } catch (error) {
       return {
-        status: error.response.status,
-        message: error.response.data.message
+        status: 500,
+        message: error.message
       };
     }
   }
@@ -58,8 +58,8 @@ export default class BaseRequest {
       };
     } catch (error) {
       return {
-        status: error.response.status,
-        message: error.response.data.message
+        status: 500,
+        message: error.message
       };
     }
   }
@@ -78,8 +78,8 @@ export default class BaseRequest {
       };
     } catch (error) {
       return {
-        status: error.response.status,
-        message: error.response.data.message
+        status: 500,
+        message: error.message
       };
     }
   }

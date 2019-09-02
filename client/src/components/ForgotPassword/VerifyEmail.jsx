@@ -2,13 +2,29 @@ import React, {Component} from "react";
 import {Container, Row, Col} from "reactstrap";
 import {Link} from "react-router-dom";
 import {Form, Button, Card, Icon, Segment, Input, Label} from "semantic-ui-react";
+import $ from "jquery";
 
 class VerifyEmail extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      code: ""
+    }
+
     this.handleNext = this.handleNext.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  componentDidMount(){
+    $('input[type=mail]').first().keypress(function (e){
+      var code = e.keyCode || e.which;
+      if (code === 13){
+        e.preventDefault();
+        $('button.btn-next').click();
+      }
+    });
   }
 
   handleBack() {
@@ -16,7 +32,15 @@ class VerifyEmail extends Component {
   }
 
   handleNext() {
-    this.props.handleStep(3);
+    if(this.state.code){
+      this.props.handleStep(3);
+    }
+  }
+
+  handleChange(event) {
+    this.setState({
+      code: event.target.value
+    })
   }
 
   render() {
@@ -43,11 +67,13 @@ class VerifyEmail extends Component {
                         <span className="title-forgot-password">Please check your email for a message with your code. Your code is 6 digits long.</span>
                         <Form.Field
                           label="Verify Code"
-                          name="email"
                           control={Input}
                           type="mail"
                           placeholder="Enter code"
                           required
+                          value={this.state.code}
+                          onChange={this.handleChange}
+                          tabIndex={1}
                         />
                         <Row>
                           <Col sm="6">
@@ -59,6 +85,7 @@ class VerifyEmail extends Component {
                               labelPosition="left"
                               content="Back"
                               onClick={this.handleBack}
+                              tabIndex={3}
                             />
                           </Col>
                           <Col sm="6">
@@ -69,7 +96,9 @@ class VerifyEmail extends Component {
                               icon="right arrow"
                               labelPosition="right"
                               content="Next"
+                              className="btn-next"
                               onClick={this.handleNext}
+                              tabIndex={2}
                             />
                           </Col>
                         </Row>

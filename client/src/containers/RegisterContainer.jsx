@@ -1,10 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {withRouter, Link} from "react-router-dom";
-import {Container, Row, Col} from "reactstrap";
-import {Form, Button, Card, Segment, Loader} from "semantic-ui-react";
+import {Container, Row, Col, Alert} from "reactstrap";
+import {Form, Button, Card, Segment} from "semantic-ui-react";
+import $ from "jquery";
 
 import AuthenticationApi from "./../apis/AuthenticationApis";
+import RegisterSuccessModal from "./../components/Register/RegisterSuccessModal";
 import * as notify from "./../constants/Notify";
 import "./css/login.scss";
 
@@ -14,24 +16,30 @@ class RegisterContainer extends Component {
 
     this.state = {
       isLoading: false,
+      fullname: "",
       email: "",
-      password: ""
+      birthday: "",
+      is_male: true,
+      phone: "",
+      password: "",
+      password_confirmation: "",
+      openModal: false
     };
 
     this.handleBackLogin = this.handleBackLogin.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.notification = this.notification.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFacebook = this.handleFacebook.bind(this);
-    this.handleGoogle = this.handleGoogle.bind(this);
-    this.handleForgotPassword = this.handleForgotPassword.bind(this);
+    this.toggle = this.toggle.bind(this);
   }
 
-  handleChange(event) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
+  toggle() {
+    this.setState(({openModal}) => ({openModal: !openModal}));
+  }
+
+  handleChange({value}, key) {
     this.setState({
-      [name]: value
+      [key]: value
     });
   }
 
@@ -41,16 +49,26 @@ class RegisterContainer extends Component {
     }
   }
 
-  handleFacebook() {
-    alert("Comming soon!");
+  componentDidMount() {
+    $("div[role=alert]").hide();
+    $("#btn-register").click(function(e) {
+      if ($("input[type=checkbox").checked === false) {
+        alert("Chọn Term and Conditions");
+      }
+      let password = $("input[name=password]").val();
+      let re_password = $("input[name=password_confirmation]").val();
+      if (password !== "" && re_password !== "" && password !== re_password) {
+        e.preventDefault();
+        $("div[role=alert]").slideDown(500);
+      } else {
+        $("div[role=alert]").slideUp(500);
+      }
+    });
   }
 
-  handleGoogle() {
-    alert("Comming soon!");
-  }
-
-  handleForgotPassword() {
-    alert("Comming soon!");
+  notification(style, title, content, timeout) {
+    let options = {style, title, content, timeout};
+    this.props.changeNotify(options);
   }
 
   handleBackLogin() {
@@ -58,41 +76,32 @@ class RegisterContainer extends Component {
   }
 
   async handleSubmit(event) {
-    let {email, password} = this.state;
-    if (email !== "" && password !== "") {
+    event.preventDefault();
+    let {fullname, email, birthday, is_male, phone, password, password_confirmation} = this.state;
+    if (email !== "" && password !== "" && fullname !== "" && password_confirmation !== "") {
       this.setState({isLoading: true});
       const authenApi = new AuthenticationApi();
-      let res = await authenApi.call("login", {
-        body: {email, password}
+      let res = await authenApi.call("register", {
+        body: {fullname, email, birthday, is_male: +is_male, phone, password, password_confirmation}
       });
 
-      console.log(res);
-
-      if (res.status === 200) {
-        this.props.login(res.data); //Save data to Redux LocalStorage
-        this.props.history.push("/dashboard");
-        let option = {
-          style: notify.SUCCESS,
-          title: notify.TITLE_LOGIN_SUCCESS,
-          content: res.message,
-          timeout: 50
-        };
-        this.props.changeNotify(option);
-      } else {
-        let option = {
-          style: notify.DANGER,
-          title: notify.TITLE_LOGIN_FAIL,
-          content: res.message,
-          timeout: 1500
-        };
-        this.props.changeNotify(option);
+      if (res.status === 404) {
+        let xhtml = '<ul style="padding-left: 0;">';
+        Object.values(res.message).forEach(function(item) {
+          xhtml += "<li>" + item[0] + "</li>";
+        });
+        xhtml += "</ul>";
+        this.notification(notify.DANGER, notify.TITLE_REGISTER_FAIL, xhtml, 2500);
         this.setState({isLoading: false});
+      } else {
+        this.setState({openModal: true, isLoading: false});
+        this.notification(notify.SUCCESS, notify.TITLE_REGISTER_SUCCESS, "Đăng ký thành công", 2500);
       }
     }
   }
 
   render() {
-    let {isLoading, email, password} = this.state;
+    let {isLoading, openModal, fullname, birthday, is_male, email, password, phone, password_confirmation} = this.state;
     return (
       <Container>
         <video autoPlay muted loop id="video_background">
@@ -103,40 +112,101 @@ class RegisterContainer extends Component {
             <Segment color="orange">
               <Card fluid>
                 <Card.Content>
-                  <Loader size="massive" active={isLoading} />
+                  <RegisterSuccessModal toggle={this.toggle} open={openModal} email={email} />
                   <Link to="/">
-                    <img id="logo" src="/images/bigin-logo.png" alt="logo" />
+                    <img id="logo-register" src="/images/bigin-logo.png" alt="logo" />
                   </Link>
-                  <Form>
-                    <Form.Input icon="user" required iconPosition="left" placeholder="Full name" />
+                  <Form onSubmit={this.handleSubmit}>
+                    <Form.Input
+                      icon="user"
+                      required
+                      iconPosition="left"
+                      placeholder="Full name"
+                      value={fullname}
+                      onChange={(event, value) => this.handleChange(value, "fullname")}
+                    />
                     <Form.Group>
                       <Form.Input
                         icon="calendar"
                         type="date"
                         iconPosition="left"
-                        placeholder="Day of birth"
                         width={10}
+                        value={birthday}
+                        onChange={(event, value) => this.handleChange(value, "birthday")}
                       />
                       <Button.Group>
-                        <Button size="small" content="Male" />
+                        <Button
+                          size="small"
+                          content="Male"
+                          onClick={(event, value) => this.handleChange(value, "is_male")}
+                          value={true}
+                          positive={!!+is_male === true}
+                        />
                         <Button.Or />
-                        <Button size="small" content="Female" />
+                        <Button
+                          size="small"
+                          content="Female"
+                          onClick={(event, value) => this.handleChange(value, "is_male")}
+                          value={false}
+                          positive={!!+is_male === false}
+                        />
                       </Button.Group>
                     </Form.Group>
                     <Form.Group>
-                      <Form.Input icon="mail" type="email" iconPosition="left" placeholder="Email" width={9} />
-                      <Form.Input icon="phone" iconPosition="left" placeholder="Phone" width={7} />
+                      <Form.Input
+                        icon="mail"
+                        type="email"
+                        iconPosition="left"
+                        placeholder="Email"
+                        width={9}
+                        value={email}
+                        required
+                        onChange={(event, value) => this.handleChange(value, "email")}
+                      />
+                      <Form.Input
+                        icon="phone"
+                        iconPosition="left"
+                        placeholder="Phone"
+                        pattern="(0[1|3|5|7|8|9])+([0-9]{8})\b"
+                        width={7}
+                        value={phone}
+                        onChange={(event, value) => this.handleChange(value, "phone")}
+                      />
                     </Form.Group>
-                    <Form.Input icon="lock" type="password" required iconPosition="left" placeholder="Password" />
                     <Form.Input
                       icon="lock"
                       type="password"
                       required
+                      name="password"
+                      iconPosition="left"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(event, value) => this.handleChange(value, "password")}
+                    />
+                    <Form.Input
+                      icon="lock"
+                      type="password"
+                      required
+                      name="password_confirmation"
                       iconPosition="left"
                       placeholder="Confirm Password"
+                      value={password_confirmation}
+                      onChange={(event, value) => this.handleChange(value, "password_confirmation")}
                     />
-                    <Form.Checkbox label="I agree to the Terms and Conditions" />
-                    <Button circular fluid color="green" type="submit" content="Register" onClick={this.handleSubmit} />
+                    <Alert color="danger">
+                      <li className="content">Password doesn't match.</li>
+                    </Alert>
+                    <Form.Checkbox label="I agree to the Terms and Conditions" required />
+                    <Button
+                      circular
+                      loading={isLoading}
+                      disabled={isLoading}
+                      fluid
+                      color="green"
+                      type="submit"
+                      content="Register"
+                      id="btn-register"
+                    />
                   </Form>
                   <hr className="hr-text" data-content="Return to login" />
                   <Button

@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\MemberStatus;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Repositories\MemberRepository;
+use App\Repositories\Interfaces\ActivationInterface;
+use App\Repositories\Interfaces\MemberInterface;
 use App\Services\Contracts\MemberServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +19,21 @@ use Validator;
 require_once app_path() . '/configs/constants.php';
 
 class MemberService extends BaseService implements MemberServiceInterface {
-    public function __construct(MemberRepository $memberRepository) {
-        $this->repository = $memberRepository;
+    /**
+     * The Activations repository.
+     *
+     * @var ActivationInterface
+     */
+    protected $activationRepository;
+
+    /**
+     * @var MemberInterface
+     */
+    protected $memberRepository;
+
+    public function __construct(MemberInterface $memberRepository, ActivationInterface $activationRepository) {
+        $this->memberRepository = $memberRepository;
+        $this->activationRepository = $activationRepository;
     }
 
     // Overide
@@ -126,5 +141,30 @@ class MemberService extends BaseService implements MemberServiceInterface {
         Storage::delete(URL_IMAGE_MEMBER . $picture);
         Storage::delete(URL_IMAGE_MEMBER_THUMB . THUMB_SIZE_180 . "-" . $picture);
         Storage::delete(URL_IMAGE_MEMBER_THUMB . THUMB_SIZE_50 . "-" . $picture);
+    }
+
+    public function createMember(array $data) {
+        $member = $this->memberRepository->create([
+            'fullname' => $data['fullname'],
+            'password' => bcrypt($data['password']),
+            'is_male' => $data['is_male'] ?? null,
+            'birthday' => $data['birthday'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'email' => $data['email'],
+            'status' => MemberStatus::PENDING(),
+            'role' => 3,
+        ]);
+        $activation = $this->activationRepository->getModel();
+        $code = \sha1(time());
+        $member_id = $member->id;
+        $activation->fill(compact('code','member_id'));
+        $activation->save();
+        return $member;
+    }
+
+    public function sendConfirmationToMember($member)
+    {
+        $notification = app(config('general.notification'));
+        $member->notify($notification);
     }
 }

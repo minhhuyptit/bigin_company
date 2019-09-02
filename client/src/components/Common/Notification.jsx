@@ -20,7 +20,7 @@ class Notification extends Component {
       <div>
         <AlertContainer position={position}>
           <Alert headline={title} type={style} timeout={timeout} onDismiss={this.handleDismiss}>
-            {content}
+          <div dangerouslySetInnerHTML={{ __html: content }} />
           </Alert>
         </AlertContainer>
       </div>
