@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\MemberRepositoryInterface;
-use App\Member;
+use App\Models\Member;
 use JWTAuth;
 use App\Http\Requests\UpdateProfileRequest;
 

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Configs\Messages;
-use App\Http\Responses\BaseHttpResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
@@ -65,7 +63,7 @@ class RegisterRequest extends FormRequest
                 'message' => $validator->errors(),
                 'data' => [],
             ]
-        )
-    );
+            )
+        );
     }
 }

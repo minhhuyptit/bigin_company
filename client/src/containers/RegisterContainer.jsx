@@ -136,6 +136,7 @@ class RegisterContainer extends Component {
                       />
                       <Button.Group>
                         <Button
+                          type="button"
                           size="small"
                           content="Male"
                           onClick={(event, value) => this.handleChange(value, "is_male")}
@@ -144,6 +145,7 @@ class RegisterContainer extends Component {
                         />
                         <Button.Or />
                         <Button
+                          type="button"
                           size="small"
                           content="Female"
                           onClick={(event, value) => this.handleChange(value, "is_male")}

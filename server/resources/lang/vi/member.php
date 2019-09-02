@@ -19,5 +19,9 @@ return [
             'success' => 'Gửi email xác thực thành công. Vui lòng kiểm tra hộp thư.',
             'failure' => 'Gửi email xác thực thất bại. Vui lòng liên hệ quản trị viên.',
         ]
+    ],
+    'login' => [
+        'success'   => 'Đăng nhập tài khoản thành công.',
+        'failure'   => 'Đăng nhập tài khoản thất bại.',
     ]
 ];

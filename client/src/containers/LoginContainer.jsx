@@ -67,7 +67,6 @@ class LoginContainer extends Component {
       let res = await authenApi.call("login", {
         body: {email, password}
       });
-
       if (res.status === 200) {
         this.props.login(res.data); //Save data to Redux LocalStorage
         this.props.history.push("/dashboard");
@@ -132,7 +131,7 @@ class LoginContainer extends Component {
                       <Link className="forgot-password" to="/password/reset">
                         Forgot password?
                       </Link>
-                      <Button circular fluid color="blue" content="Login" />
+                      <Button circular disabled={isLoading} fluid color="blue" content="Login" />
                     </Form>
                     <hr className="hr-text" data-content="Or" />
                     <Row>

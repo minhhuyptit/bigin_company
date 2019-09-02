@@ -19,5 +19,9 @@ return [
             'success' => 'Email verification successful. Please check your mailbox.',
             'failure' => 'Email verification failed. Please contact admin.',
         ]
+    ],
+    'login' => [
+        'success'   => 'Login successful account.',
+        'failure'   => 'Account login failed.',
     ]
 ];

@@ -57,7 +57,8 @@ class RegisterSuccessModal extends Component {
             </Col>
           </Row>
           <Row style={{marginTop: "10px", marginBottom: "10px"}} className="justify-content-center">
-            Vui lòng kiểm tra lại xác nhận lại mail trong hòm thư.
+          Trước khi tiếp tục, vui lòng kiểm tra email của bạn để biết liên kết xác minh.
+          Nếu bạn không nhận được email bấm nút bên dưới để gửi yêu cầu khác.
           </Row>
           <Row className="justify-content-center">
             <Button

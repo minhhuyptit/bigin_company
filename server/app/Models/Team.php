@@ -12,7 +12,7 @@ class Team extends Model {
     ];
 
     protected $hidden = [
-        'pivot', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at',
+        'pivot', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at'
     ];
 
     public function member_leader() {

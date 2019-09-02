@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Repositories\Interfaces\ActivationInterface;
@@ -9,6 +10,7 @@ use App\Repositories\Interfaces\MemberInterface;
 use App\Services\MemberService;
 use App\Services\Member\ConfirmEmailService;
 use App\Services\Member\CreateMemberService;
+use App\Services\Member\LoginService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -69,7 +71,7 @@ class MemberController extends Controller {
         }
         $this->sendConfirmationToMember($member);
         //TODO Not working when using notify
-        return $this->response(200, trans('register.confirm.success'));
+        return $this->response(200, trans('member.register.confirm.success'));
     }
 
     public function sendConfirmationToMember($member)
@@ -78,9 +80,12 @@ class MemberController extends Controller {
         $member->notify($notification);
     }
 
-    public function login(Request $request) {
-
-        // return $this->service->login($credentials);
+    public function login(LoginRequest $request, LoginService $loginService) {
+        $result = $loginService->execute($request);
+        if($result === false){
+            return $this->response(404, trans('member.login.failure'));
+        }
+        return $this->response(200, trans('member.login.success'), $result);
     }
 
     public function logout(Request $request) {

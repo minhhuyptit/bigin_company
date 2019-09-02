@@ -13,14 +13,12 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
      *
      * @var int
      */
-    protected $expires = 60;
-
+    protected $expires = 3 * 24 * 60 * 60;
 
     /**
      * {@inheritDoc}
      */
-    public function createActivation(Member $member)
-    {
+    public function createActivation(Member $member) {
         $activation = $this->model;
         $code = $this->generateActivationCode();
         $activation->fill(compact('code'));
@@ -114,8 +112,7 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
      *
      * @return string
      */
-    protected function generateActivationCode()
-    {
+    protected function generateActivationCode() {
         return \sha1(time());
     }
 }

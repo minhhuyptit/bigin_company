@@ -17,7 +17,7 @@ class Member extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at', 'pivot'
+        'password', 'del_flag', 'created_by', 'modified_by', 'created_at', 'updated_at', 'pivot', 'member_role', 'teams'
     ];
 
     /**
@@ -43,7 +43,7 @@ class Member extends Authenticatable implements JWTSubject
 
     public function member_role()
     {
-        return $this->belongsTo(Configuration::class, 'role', 'id')->where('del_flag', false);
+        return $this->belongsTo(Role::class, 'role', 'id')->where('del_flag', false);
     }
 
     public function votes()

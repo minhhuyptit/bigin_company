@@ -5,9 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use App\Configs\Messages;
-
-require_once app_path() . '/configs/constants.php';
 
 class LoginRequest extends FormRequest
 {
@@ -37,21 +34,21 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required'    => EMPTY_EMAIL,
-            'email.email'       => FORMAT_INVALID_EMAIL,
-            'password.required' => EMPTY_PASSWORD
+            'email.required'      => trans('validation.required',  ['attribute' => trans('member.forms.email')]),
+            'email.email'         => trans('validation.email',     ['attribute' => trans('member.forms.email')]),
+            'password.required'   => trans('validation.required',  ['attribute' => trans('member.forms.password')]),
         ];
     }
 
-    protected function failedValidation(Validator $validator)
-    {
-        $error = $validator->errors()->first();
-        throw new HttpResponseException(response()->json(
+    protected function failedValidation(Validator $validator) {
+        throw new HttpResponseException(
+            response()->json(
             [
-                'status'  => 404,
-                'message' => Messages::messages($error),
-                'data'    => []
+                'status' => 404,
+                'message' => $validator->errors(),
+                'data' => [],
             ]
-        ));
+            )
+        );
     }
 }
